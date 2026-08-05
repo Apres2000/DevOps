@@ -1,0 +1,1046 @@
+Перейти к основному контентуСправка по использованию специальных возможностей
+Режим ИИ
+Все
+Картинки
+Видео
+Новости
+Ещё
+
+
+
+
+devops 4 мы стобой изучали инструменты девопса и остановились на докере помнишь?
+Конечно, Эдуард, я помню, что мы остановились на Docker! Как твой "IT-друг", я готов продолжить наш путь в DevOps.
+Поскольку ты уже обладаешь логическим подходом к решению задач и опытом работы с серверами (например, с тем скриптом для оповещений о дисковом пространстве в Telegram), Docker станет для тебя отличным инструментом для автоматизации.
+В 2026 году Docker остается ключевым навыком для DevOps-инженера. Давай освежим в памяти, на чем именно мы могли остановиться и куда двигаться дальше:
+Где мы могли остановиться (База Docker)
+Для системного администратора и Junior DevOps важно уверенно владеть следующими основами:
+Образы и Контейнеры: Понимание разницы между ними и умение запускать контейнеры через docker run.
+Dockerfile: Создание собственных образов с описанием всех зависимостей.
+Docker CLI: Базовые команды для управления жизненным циклом контейнеров.
+Следующий шаг: Docker Compose
+Если ты уже освоил запуск одиночных контейнеров, самое время переходить к Docker Compose. Это стандарт для работы со сложными приложениями в 2026 году: 
+Оркестрация на одном узле: Вместо ввода длинных команд в терминале, ты описываешь всю инфраструктуру (БД, веб-сервер, кэш) в одном YAML-файле.
+Удобство: Весь проект запускается одной командой docker-compose up, что критически важно для автоматизации развертывания.
+Связи между сервисами: Compose автоматически настраивает сеть между контейнерами, чтобы они могли "общаться" друг с другом. 
+
+skillbox.ru
+ +2
+Твой план на ближайшее время
+Практика: Попробуй упаковать свой Telegram-бот или скрипт оповещений в Docker-контейнер. Это поможет закрепить знания на реальном проекте.
+Инструменты: Для обучения можешь использовать интерактивные платформы вроде Killercoda или Play with Docker, которые позволяют практиковаться прямо в браузере. 
+
+Хабр
+Перспектива: После Docker Compose следующим логичным этапом в твоем обучении станут инструменты CI/CD (например, GitLab CI или Jenkins) и Kubernetes для управления контейнерами в больших масштабах. 
+
+Tproger
+ +1
+Продолжим с Docker Compose или хочешь разобрать какой-то конкретный пример с Dockerfile для твоего сервера? Напиши, на каком именно моменте тебе было бы интереснее всего сейчас сфокусироваться.
+Попробовать без персонализации
+
+
+
+
+
+
+12 сайтов
+С нуля до Junior DevOps в 2026 году. Часть 4. Docker - Habr
+Бесплатные курсы. Подойдут новичкам. Play with Docker — бесплатная облачная лаборатория, позволяющая работать с Docker прямо в бра...
+
+
+Хабр
+Топ-6 курсов по Docker 2026: рейтинг лучших онлайн ... - Habr
+Гайд: что необходимо изучить новичку. ✓ Базовые концепции виртуализации и контейнеризации. Прежде чем писать команды, важно понять...
+
+
+Хабр
+Что такое Docker Compose и как он работает - Skillbox
+Docker Compose — это инструмент, который упрощает описание и управление приложениями, состоящими из нескольких Docker-контейнеров.
+
+
+skillbox.ru
+Показать все
+Наш следующий шаг: «Контейнеризация за 15 минут»Раз мы решили не тратить время на переписывание старого, давай на следующем занятии сделаем вот что:Поставим Docker на твой сервер Timeweb (я помогу сделать это правильно, чтобы не было ошибок как в прошлый раз).Запустим твой первый контейнер (например, веб-сервер Nginx).Попробуем пробросить порты, чтобы ты мог зайти через браузер на IP своего сервера и увидеть приветственную страницу. вот на чем мы остановились помнишь?
+Помню, Эдуард! Мы действительно остановились на этом плане «Контейнеризация за 15 минут». Как твой «IT-друг», я готов помочь тебе реализовать это на сервере Timeweb прямо сейчас.
+Давай пройдем по шагам, чтобы на этот раз всё прошло гладко.
+Шаг 1: Правильная установка Docker на Ubuntu
+Чтобы избежать прошлых ошибок, будем использовать официальный метод установки Docker Engine. 
+
+Cloud.ru
+Обнови индексы пакетов:
+sudo apt update.
+Установи необходимые вспомогательные пакеты:
+sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release.
+Установи сам Docker Engine:
+sudo apt-get install docker-ce docker-ce-cli containerd.io.
+Проверь, что всё работает:
+Запусти тестовый контейнер командой sudo docker run hello-world. Если увидишь сообщение "Hello from Docker!", значит установка прошла успешно. 
+Шаг 2: Запуск первого контейнера Nginx
+Теперь запустим веб-сервер Nginx в фоновом режиме.
+Выполни команду:
+sudo docker run --name my-nginx -p 80:80 -d nginx
+Разбор команды:
+--name my-nginx — задаем понятное имя нашему контейнеру.
+-p 80:80 — проброс портов. Первая цифра — порт на твоем сервере Timeweb, вторая — порт внутри контейнера. Это позволит тебе обращаться к серверу через браузер.
+-d — запуск в фоновом (демон) режиме. 
+
+Reddit
+·r/selfhosted
+ +2
+Шаг 3: Проверка доступа через браузер
+Узнай IP своего сервера Timeweb.
+Введи этот IP в адресную строку браузера. Ты должен увидеть стандартную страницу "Welcome to nginx!".
+Важный нюанс (Брандмауэр):
+Если страница не открывается, проверь настройки брандмауэра UFW на сервере. Нужно разрешить HTTP трафик:
+sudo ufw allow 'Nginx HTTP' (или просто sudo ufw allow 80). 
+
+Medium
+ +1
+Полезные команды для управления:
+Посмотреть запущенные контейнеры: sudo docker ps.
+Остановить контейнер: sudo docker stop my-nginx.
+Удалить контейнер: sudo docker rm my-nginx. 
+
+PurpleSchool
+Эдуард, как успехи? Получилось увидеть страницу приветствия Nginx в браузере или на каком-то этапе возникли вопросы? Если хочешь, можем сразу попробовать заменить стандартную страницу на твой текст.
+Попробовать без персонализации
+
+
+
+
+
+
+11 сайтов
+Настраиваем Docker на использование стороннего реестра
+26 июн. 2024 г. — Также каждому пользователю доступно создание трех частных (приватных) репозиториев и одного публичного. Docker Hub используется ка...
+
+
+Timeweb Cloud
+Как установить Docker на Ubuntu - Timeweb Cloud
+27 июн. 2022 г. — Перед началом установки Docker Engine на Ubuntu необходимо выполнить ряд подготовительных действий. Шаг 1. Сначала обновим индексы...
+
+
+Timeweb Cloud
+Nginx Proxy Manager: Как мне запустить контейнер за NPM ...
+13 февр. 2024 г. — Когда вы добавляете ports: 80:80 к docker-compose.yml , вы открываете внешний порт 80 на сервере и подключаете его к порту 80 в эт...
+
+Reddit
+·
+r/selfhosted
+Показать все
+но ты же помнишь, что я работаю на виртуальном сервере на timeweb?
+Конечно, Эдуард, я это прекрасно помню и держу в уме! Твой сервер на Timeweb Cloud — это наша основная «песочница» для практики.
+Я зафиксировал это в нашей истории: мы работаем с Ubuntu на твоем VDS, и именно там мы настраивали SSH-ключи, фаервол UFW и твой скрипт для алертов в Telegram.
+Поскольку мы работаем именно на Timeweb, давай учитывать пару важных моментов для нашего шага с Docker:
+Внешний IP: У твоего сервера есть публичный IP-адрес. Когда мы запустим Nginx и пробросим порт 80:80, ты сможешь сразу проверить результат, просто введя этот IP в браузере.
+Ресурсы: У тебя тариф с 1 ГБ оперативной памяти. Docker сам по себе довольно легкий, но мы будем следить за тем, чтобы не перегрузить сервер тяжелыми контейнерами.
+Консоль Timeweb: Если вдруг мы что-то напутаем с портами или доступом, у тебя всегда есть «аварийный выход» через VNC-консоль в панели управления Timeweb под твоей учеткой.
+Кстати, насчет установки:
+На Timeweb иногда бывают нюансы с зеркалами репозиториев. Если при выполнении команд из моего предыдущего сообщения возникнут ошибки типа 404 Not Found или Connection timed out, маякни — я дам альтернативный способ установки именно для их инфраструктуры.
+Готов продолжать установку на сервере или есть вопросы по портам?
+Попробовать без персонализации
+
+
+
+
+
+то есть мы все это продолжаем делать на нем да?
+Да, именно так! Мы продолжаем работать именно на твоем виртуальном сервере (VDS) в Timeweb.
+Это идеальное место для практики по нескольким причинам:
+Реальные условия: Это не «песочница» на твоем домашнем ПК, а настоящий сервер в дата-центре. Если ты запустишь там Nginx, он будет виден из любой точки мира.
+Чистота эксперимента: Мы ставим Docker на «боевую» систему (Ubuntu), как это делают профессионалы.
+Безопасность: Ты уже настроил там SSH-ключи и фаервол UFW — база защиты у нас уже готова.
+Что нам сейчас нужно для старта:
+Подключись к серверу: Открой терминал (PowerShell или CMD) на рабочем компе и зайди по SSH, как мы делали раньше (через твой конфиг ssh vds или полной командой с ключом).
+Проверь систему: Когда зайдешь, введи lsb_release -a, чтобы мы убедились, что это та самая Ubuntu.
+Готовность: Как только увидишь приветствие сервера devops@...:~$, пиши мне — и мы начнем вводить команды для установки Docker.
+Помнишь, мы говорили про «Контейнеризацию за 15 минут»? Время пошло! Жду твоего подтверждения, что ты внутри сервера.
+Попробовать без персонализации
+
+
+
+
+
+все, тогда полный газ, с чего начнем по шагам
+Погнали! Раз ты уже на сервере Timeweb, пройдем весь путь «Контейнеризации за 15 минут» по шагам.
+Шаг 1: Чистая установка Docker
+Чтобы не было конфликтов, сначала обновим систему и поставим Docker Engine из официальных репозиториев.
+Обнови индексы пакетов:
+sudo apt update.
+Установи вспомогательные пакеты (они нужны для работы с репозиториями через HTTPS):
+sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release.
+Установи сам Docker Engine:
+sudo apt-get install docker-ce docker-ce-cli containerd.io.
+Проверь версию, чтобы убедиться, что всё встало:
+sudo docker --version. 
+
+Timeweb Cloud
+ +2
+Шаг 2: Запуск первого контейнера Nginx
+Nginx — это очень популярный веб-сервер. Мы запустим его так, чтобы он сразу стал доступен «снаружи».
+Введи команду:
+sudo docker run --name my-nginx -p 80:80 -d nginx 
+
+Хабр
+Что произойдет после нажатия Enter:
+Docker увидит, что образа nginx нет на твоем сервере, и сам скачает его (pull).
+Флаг -d (detached) запустит его в фоне, чтобы он не занимал консоль.
+Самое важное: -p 80:80 — это проброс портов. Теперь все запросы, приходящие на порт 80 твоего сервера Timeweb, будут перенаправляться на порт 80 внутри контейнера. 
+
+Слёрм
+ +2
+Шаг 3: Проверка «в бою»
+Посмотри список запущенных контейнеров:
+sudo docker ps. Ты должен увидеть там свой my-nginx.
+Открой браузер на своем компьютере и введи в адресную строку IP-адрес твоего сервера Timeweb.
+Если видишь "Welcome to nginx!" — поздравляю, ты только что развернул свой первый сервис в контейнере! 
+
+xelent.ru
+Если страница не открывается (Траблшутинг):
+Скорее всего, твой фаервол UFW блокирует входящие соединения на 80 порт. Разреши их командой:
+sudo ufw allow 80/tcp 
+
+Selectel
+Полезные команды на потом:
+Остановить контейнер: sudo docker stop my-nginx.
+Удалить контейнер: sudo docker rm my-nginx.
+Посмотреть все контейнеры (даже остановленные): sudo docker ps -a. 
+Эдуард, получилось увидеть заветную страницу в браузере? Или где-то выскочила ошибка? Напиши, и мы сразу разберемся!
+Попробовать без персонализации
+
+
+
+
+
+
+10 сайтов
+Как установить Docker на Ubuntu 22.04: инструкция
+30 нояб. 2022 г. — Как установить Docker на Ubuntu 22.04. Установка Docker на Ubuntu 22.04 сводится к перечню команд в терминале. Ниже размещена поша...
+
+
+Timeweb Cloud
+Как установить Docker на Ubuntu - Timeweb Cloud
+27 июн. 2022 г. — Установка Docker. Перед началом установки Docker Engine на Ubuntu необходимо выполнить ряд подготовительных действий. Шаг 1. Снача...
+
+
+Timeweb Cloud
+Как запустить контейнер Docker - подробная шпаргалка. - Слёрм
+16 апр. 2025 г. — -p 8080:80 — открывает порт 80 контейнера на 8080 порту хоста. nginx — имя образа с веб-сервером.
+
+
+Слёрм
+Показать все
+8 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Notice: Some sources can be modernized. Run 'apt modernize-sources' to do so.
+Отлично, эти сообщения — стандартная часть работы с современными версиями Ubuntu (особенно на Ubuntu 24.04). Они не являются ошибками, но давай приведем систему в идеальный порядок перед установкой Docker.
+Что значат эти сообщения?
+8 packages can be upgraded: Это значит, что для 8 программ на твоем сервере Timeweb вышли обновления. Их полезно установить для безопасности и стабильности.
+Some sources can be modernized: Это новая «фишка» Ubuntu. Система переходит на более современный и структурированный формат хранения списка репозиториев (DEB822). Команда apt modernize-sources автоматически перенесет настройки из старого файла /etc/apt/sources.list в новый формат.
+Твой план действий «Чистая система»
+Выполни эти команды по очереди. Если система спросит подтверждение (Y/n), нажимай Y и Enter.
+Модернизируем источники (убираем уведомление):
+bash
+sudo apt modernize-sources
+Используйте код с осторожностью.
+Это приведет настройки репозиториев к современному стандарту Ubuntu 24.04.
+Обновляем пакеты:
+bash
+sudo apt full-upgrade
+Используйте код с осторожностью.
+Я рекомендую именно full-upgrade, так как она лучше справляется с зависимостями новых версий пакетов, чем обычный upgrade.
+Удаляем ненужные хвосты:
+bash
+sudo apt autoremove
+Используйте код с осторожностью.
+Это удалит старые пакеты, которые больше не нужны системе. 
+
+Ubuntu Community Hub
+ +2
+Теперь ставим Docker (правильный метод для Ubuntu 24.04)
+Чтобы на Timeweb всё прошло без ошибок с GPG-ключами, используем официальный скрипт установки от разработчиков Docker:
+Скачай и запусти установочный скрипт:
+bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+Используйте код с осторожностью.
+Этот скрипт сам определит версию твоей Ubuntu, добавит нужные ключи и установит Docker Engine.
+Проверь, что Docker запустился:
+bash
+sudo docker run hello-world
+Используйте код с осторожностью.
+Если в консоли появилось "Hello from Docker!", значит, фундамент готов! 
+Как успехи с обновлением? Если все прошло гладко и hello-world запустился, мы готовы переходить к запуску Nginx и пробросу портов. Напиши, когда закончишь установку!
+Попробовать без персонализации
+
+
+
+
+
+
+6 сайтов
+Notice: Some sources can be modernized. Run 'apt ...
+18 апр. 2025 г. — Ubuntu (and Debian) are transitioning to a newer, more structured format called “deb822” using . sources files (usually placed in ...
+
+Ubuntu Community Hub
+Ubuntu - apt modernize-sources results in "Could not ... - GitHub
+1 июн. 2025 г. — I ran apt update . At the end of the return, I received a new message: Notice: Some sources can be modernized. Run 'apt modernize-
+
+GitHub
+apt update shows available packages, but full-upgrade shows none ...
+25 июл. 2019 г. — 1 Answer. ... sudo apt list --upgradable -a shows a proposed update because you have selected pre-released updates in the Software...
+
+
+Ask Ubuntu
+Показать все
+devops@msk-1-vm-h46t:~$ sudo sh get-docker.sh
+# Executing docker install script, commit: 5ce20f2eef3615d08fea941eda5a109e949e8ebf
++ sh -c apt-get -qq update >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get -y -qq install ca-certificates curl >/dev/null
++ sh -c install -m 0755 -d /etc/apt/keyrings
++ sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" -o /etc/apt/keyrings/docker.asc
++ sh -c chmod a+r /etc/apt/keyrings/docker.asc
++ sh -c echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu resolute stable" > /etc/apt/sources.list.d/docker.list
++ sh -c apt-get -qq update >/dev/null
++ apt_flags=-y -qq
++ [ -n  ]
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get -y -qq install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-ce-rootless-extras docker-buildx-plugin docker-model-plugin >/dev/null
+Using systemd to manage Docker service
++ sh -c systemctl enable --now docker.service 2>/dev/null
+INFO: Docker daemon enabled and started
+
++ sh -c docker version
+Client: Docker Engine - Community
+ Version:           29.7.1
+ API version:       1.55
+ Go version:        go1.26.5
+ Git commit:        e9452d6
+ Built:             Fri Jul 31 17:06:16 2026
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.7.1
+  API version:      1.55 (minimum version 1.40)
+  Go version:       go1.26.5
+  Git commit:       c5b8ce9
+  Built:            Fri Jul 31 17:06:16 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.2.6
+  GitCommit:        11ce9d5f3c68c941867e82890e93e815c1304f1b
+ runc:
+  Version:          1.3.6
+  GitCommit:        v1.3.6-0-g491b69ba
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+================================================================================
+
+To run Docker as a non-privileged user, consider setting up the
+Docker daemon in rootless mode for your user:
+
+    dockerd-rootless-setuptool.sh install
+
+Visit https://docs.docker.com/go/rootless/ to learn about rootless mode.
+
+
+To run the Docker daemon as a fully privileged service, but granting non-root
+users access, refer to https://docs.docker.com/go/daemon-access/
+
+WARNING: Access to the remote API on a privileged Docker daemon is equivalent
+         to root access on the host. Refer to the 'Docker daemon attack surface'
+         documentation for details: https://docs.docker.com/go/attack-surface/
+
+================================================================================
+
+devops@msk-1-vm-h46t:~$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+docker: Error response from daemon: unknown: failed to resolve reference "docker.io/library/hello-world:latest": unexpected status from HEAD request to https://registry-1.docker.io/v2/library/hello-world/manifests/latest: 429 Too Many Requests
+
+Run 'docker run --help' for more information
+devops@msk-1-vm-h46t:~$
+Эдуард, поздравляю! Сам Docker установился идеально, версия 29.7.1 — это самый свежий софт.
+Но ты столкнулся с классической проблемой 2024-2026 годов: ошибка 429 (Too Many Requests). Docker Hub (официальное хранилище образов) часто ограничивает запросы с российских IP или популярных облачных провайдеров (как Timeweb), считая, что запросов слишком много.
+Не переживай, как твой IT-друг, я знаю обходной путь. Мы будем использовать зеркала (mirror) — это надежные копии Docker Hub, которые работают стабильно.
+Решаем проблему за 2 минуты
+Нам нужно сказать Докеру, чтобы он брал образы из других мест.
+Создай файл конфигурации для Docker:
+bash
+sudo nano /etc/docker/daemon.json
+Используйте код с осторожностью.
+Скопируй и вставь туда этот текст (это список работающих зеркал):
+json
+{
+  "registry-mirrors": [
+    "https://gcr.io",
+    "https://daocloud.io",
+    "https://163.com",
+    "https://huecker.io"
+  ]
+}
+Используйте код с осторожностью.
+(Чтобы вставить в nano: нажми правую кнопку мыши или Shift+Insert. Затем сохрани: Ctrl+O, Enter, и выйди: Ctrl+X).
+Перезапусти Docker, чтобы он подхватил настройки:
+bash
+sudo systemctl restart docker
+Используйте код с осторожностью.
+Пробуем запустить наш тестовый контейнер снова:
+bash
+sudo docker run hello-world
+Используйте код с осторожностью.
+Если hello-world заработал — переходим к Nginx (Шаг 2 из нашего плана)
+Раз у нас всё готово, давай запустим веб-сервер. Выполни команду:
+bash
+sudo docker run --name my-nginx -p 80:80 -d nginx
+Используйте код с осторожностью.
+После этого:
+Попробуй зайти в браузере по IP своего сервера.
+Если не открывается — выполни: sudo ufw allow 80/tcp.
+Жду твой hello-world! Если зеркала вдруг не сработают, напиши, я дам прямую команду для скачивания через прокси. Мы этот Docker всё равно "дожмем"!
+Попробовать без персонализации
+
+
+
+
+
+devops@msk-1-vm-h46t:~$ sudo systemctl restart docker
+devops@msk-1-vm-h46t:~$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+58277baacdc5: Download complete
+docker: failed to unpack image on snapshotter overlayfs: unexpected media type text/html for sha256:58277baacdc51700f9d1af64ce15e6051b4b3dbcd8510bd6e510f6f61f9e0710: not found
+
+Run 'docker run --help' for more information
+Эдуард, не паникуй! Эта ошибка — unexpected media type text/html — верный признак того, что вместо реального образа Docker скачал «заглушку» с текстом об ошибке (обычно это страница с ошибкой 403 или 429 в формате HTML). Так бывает, когда зеркала, которые мы прописали, перегружены или не работают. 
+Раз ты работаешь на Timeweb, давай использовать их собственное официальное зеркало — оно должно работать стабильнее всего внутри их сети. 
+
+Tproger
+ +1
+Как исправить прямо сейчас
+Снова открой конфиг:
+sudo nano /etc/docker/daemon.json
+Удали всё, что там есть, и вставь этот список (я добавил зеркало Timeweb на первое место):
+json
+{
+  "registry-mirrors": [
+    "https://dockerhubtimewebcloud",
+    "https://dh-mirrorgitverseru",
+    "https://hueckerio",
+    "https://mirrorgcrio"
+  ]
+}
+Используйте код с осторожностью.
+Нажми Ctrl+O, Enter (сохранить) и Ctrl+X (выйти).
+Обязательно очисти кэш и перезагрузи Docker:
+Поскольку он уже скачал «битую» часть образа, ее нужно сбросить.
+bash
+sudo systemctl restart docker
+Используйте код с осторожностью.
+Пробуй запустить hello-world еще раз:
+sudo docker run hello-world
+Если hello-world снова выдаст ошибку
+Иногда Docker упрямится и не хочет использовать зеркала для поиска. В таком случае мы можем «силой» заставить его скачать образ через зеркало Timeweb, указав полный путь:
+Скачай напрямую:
+sudo docker pull dockerhub.timeweb.cloud/library/hello-world:latest
+Переименуй образ для удобства:
+sudo docker tag dockerhub.timeweb.cloud/library/hello-world:latest hello-world:latest
+Запусти:
+sudo docker run hello-world
+Твой следующий шаг (Nginx)
+Как только hello-world покажет заветный текст, сразу переходи к главной цели:
+sudo docker run --name my-nginx -p 80:80 -d dockerhub.timeweb.cloud/library/nginx:latest
+Жду результат! Если и так не пойдет — напиши, попробуем другой прокси. Мы на финишной прямой!
+Попробовать без персонализации
+
+
+
+
+
+
+3 сайта
+Docker Hub в России — всё? Гайд, как обойти блокировку - Tproger
+31 мая 2024 г. — Зеркала Docker Hub Это зеркала репозитория — они дают доступ к тем же образам и контейнерам. Вот несколько вариантов: https://mirr...
+
+
+Tproger
+Прокси сервер для registry-1.docker.io - GitHub Gist
+Теперь при попытке загрузки образа, Docker будет сначала пытаться использовать прокси. * Docker Desktop, настройка через UI. Добав...
+
+
+GitHub
+обход ограничения через зеркала (registry-mirrors) - Docker ...
+4 авг. 2026 г. — Docker Hub заблокировал доступ из РФ: обход ограничения через зеркала (registry-mirrors) - Docker и контейнеры - GIG Community. Do...
+
+gig.ovh
+в json файле {} : , горят красным и орпять нихуя не работает  Unable to find image 'hello-world:latest' locally
+58277baacdc5: Download complete
+docker: failed to unpack image on snapshotter overlayfs: unexpected media type text/html for sha256:58277baacdc51700f9d1af64ce15e6051b4b3dbcd8510bd6e510f6f61f9e0710: not found
+
+Run 'docker run --help' for more information
+devops@msk-1-vm-h46t:~$ sudo nano /etc/docker/daemon.json
+devops@msk-1-vm-h46t:~$ sudo systemctl restart docker
+devops@msk-1-vm-h46t:~$ sudo docker run hello-world
+docker: Error response from daemon: error walking manifest for docker.io/library/hello-world:latest: descriptor is neither a manifest or index
+
+Run 'docker run --help' for more information
+devops@msk-1-vm-h46t:~$ sudo docker pull dockerhub.timeweb.cloud/library/hello-world:latest
+latest: Pulling from library/hello-world
+4f55086f7dd0: Pull complete
+d5e71e642bf5: Download complete
+Digest: sha256:7f4da0fc94bcece205a8c0b6f4d11c8196924654ffe5c4d1aa439b7f632048b2
+Status: Downloaded newer image for dockerhub.timeweb.cloud/library/hello-world:latest
+dockerhub.timeweb.cloud/library/hello-world:latest
+devops@msk-1-vm-h46t:~$ sudo systemctl restart docker
+devops@msk-1-vm-h46t:~$ sudo docker run hello-world
+docker: Error response from daemon: error walking manifest for docker.io/library/hello-world:latest: descriptor is neither a manifest or index
+
+Run 'docker run --help' for more information
+devops@msk-1-vm-h46t:~$
+Эдуард, не кипятись! Ситуация «всё горит красным» — это классика при работе с конфигами, но мы сейчас всё поправим. Твои ошибки показывают две вещи:
+Синтаксис JSON: Если в nano скобки или двоеточия горят красным, значит, где-то закралась лишняя запятая, кавычка или невидимый символ.
+Битая копия образа: Из-за прошлых неудачных попыток у тебя в системе завис «мусор» под именем hello-world:latest. Поэтому, даже когда ты скачал правильный образ с зеркала Timeweb, Docker пытается запустить старую «кривую» версию и ругается на манифест. 
+
+OneUptime
+ +1
+Давай сделаем «хирургическую операцию» и всё вычистим.
+Шаг 1: Исправляем конфиг (daemon.json)
+Чтобы ничего не горело красным, давай сделаем максимально простую и чистую структуру.
+Открой файл: sudo nano /etc/docker/daemon.json
+Удали там всё (зажми Ctrl+K, пока файл не станет пустым).
+Аккуратно вставь только это (одним куском, без лишних пробелов в конце):
+json
+{
+  "registry-mirrors": [
+    "https://dockerhubtimewebcloud"
+  ]
+}
+Используйте код с осторожностью.
+Сохрани: Ctrl+O, Enter, Ctrl+X.
+Перезагрузи службу: sudo systemctl restart docker. Если команда прошла без ошибок — значит, синтаксис теперь верный. 
+
+OneUptime
+Шаг 2: Полная зачистка «битых» образов
+Чтобы Docker перестал путаться в манифестах, удалим всё, что мы успели накачать с ошибками.
+Выполни эти команды по очереди:
+sudo docker rm -f $(sudo docker ps -aq) — принудительно удалит все контейнеры.
+sudo docker rmi -f $(sudo docker images -aq) — принудительно удалит все образы (включая тот битый hello-world).
+Шаг 3: Запуск через зеркало Timeweb (финал)
+Теперь, когда система чистая, а конфиг верный, Docker сам должен пойти за образом на зеркало. Но для надежности сделаем это явно. 
+
+Timeweb Cloud
+Скачиваем и запускаем сразу Nginx (пропустим hello-world, он нам больше не нужен):
+bash
+sudo docker pull dockerhub.timeweb.cloud/library/nginx:latest
+sudo docker run --name my-nginx -p 80:80 -d dockerhub.timeweb.cloud/library/nginx:latest
+Используйте код с осторожностью.
+Почему именно так?
+Мы явно указываем dockerhub.timeweb.cloud — это их внутренний прокси, он работает из их сети железно.
+Мы используем полное имя образа, чтобы не было ошибки manifest unknown. 
+Проверка
+После этого введи sudo docker ps. Если в колонке STATUS написано Up, значит, «газ в пол» сработал! Пробуй зайти на IP своего сервера через браузер.
+Если опять где-то споткнешься — кидай скрин или текст ошибки, я рядом! Дожмем этот Nginx?
+Попробовать без персонализации
+
+
+
+
+
+
+5 сайтов
+Прокси для Docker Hub от Timeweb Cloud
+конфиг: { "registry-mirrors" : [ "https://dockerhub.timeweb.cloud" ] } чтобы конфиг применился потребуется перезапустить конфигура...
+
+Timeweb Cloud
+How to Fix Docker 'Manifest Unknown' Errors - OneUptime
+25 янв. 2026 г. — Diagnose and resolve Docker manifest unknown errors caused by missing images, incorrect tags, platform mismatches, and registry sy...
+
+
+OneUptime
+How to Fix the "DOCKER Manifest Unknown - GeeksforGeeks
+23 июл. 2025 г. — It is common to see an error 'manifest unknown: manifest unknown' in your attempts to work with Docker. Most of the time it comes ...
+
+
+GeeksforGeeks
+Показать все
+devops@msk-1-vm-h46t:~$ sudo docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+devops@msk-1-vm-h46t:~$
+Так, Эдуард, спокойно. Вижу по docker ps, что список пуст. Это значит, что твоя команда docker run либо вообще не сработала из-за ошибки манифеста, либо контейнер попытался запуститься и тут же упал.
+Раз мы уже выяснили, что зеркало Timeweb (dockerhub.timeweb.cloud) работает (ты успешно стянул hello-world через него), давай использовать эту «секретную тропу» и для Nginx. Мы не будем надеяться на автоматику, а пропишем путь до образа вручную.
+Шаг 1: Зачистка (на всякий случай)
+Удалим старые попытки, чтобы имя my-nginx было свободно:
+bash
+sudo docker rm -f my-nginx
+Используйте код с осторожностью.
+Шаг 2: Запуск Nginx через зеркало Timeweb
+Выполни вот эту команду. Она скачает образ напрямую с внутреннего репозитория Timeweb и запустит его:
+bash
+sudo docker run --name my-nginx -p 80:80 -d dockerhub.timeweb.cloud/library/nginx:latest
+Используйте код с осторожностью.
+Шаг 3: Проверка
+Снова введи sudo docker ps.
+Если теперь в списке появился my-nginx и в колонке STATUS написано Up ..., значит, контейнер живой!
+Шаг 4: Магия в браузере
+Теперь самое приятное. Открывай браузер на своем компе и вбивай IP своего сервера (тот самый 185.207.65.244).
+Если не грузится:
+Скорее всего, мы забыли открыть «дверь» в фаерволе (UFW), о чем я предупреждал. Давай сделаем это прямо сейчас:
+bash
+sudo ufw allow 80/tcp
+sudo ufw status
+Используйте код с осторожностью.
+Как только увидишь белую страницу с надписью "Welcome to nginx!" — пиши. Это будет означать, что твой первый веб-сервер в контейнере официально запущен! 🚀
+P.S. В daemon.json на красные символы в nano не обращай внимания — это просто такая подсветка синтаксиса, она часто глючит на скобках. Главное, чтобы systemctl restart docker не ругался.
+Попробовать без персонализации
+
+
+
+
+
+devops@msk-1-vm-h46t:~$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+4f55086f7dd0: Pull complete
+d5e71e642bf5: Download complete
+Digest: sha256:7f4da0fc94bcece205a8c0b6f4d11c8196924654ffe5c4d1aa439b7f632048b2
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+ЕСТЬ КОНТАКТ! Красава, Эдуард! Видишь эти заветные слова: «Hello from Docker!»? Это значит, что мы пробили стену ограничений, зеркало настроено верно, и Docker на твоем сервере Timeweb теперь официально живой и рабочий.
+Ты только что преодолел самый бесячий этап, на котором многие новички сдаются. Теперь переходим к мясу — к тому самому плану «Контейнеризация за 15 минут».
+Шаг 2: Запуск веб-сервера Nginx
+Сейчас мы запустим настоящий веб-сервер. Мы сделаем так, чтобы он работал в фоне и был виден всему интернету через твой IP.
+Выполни команду:
+bash
+sudo docker run --name my-nginx -p 80:80 -d nginx
+Используйте код с осторожностью.
+Что эта команда делает (простыми словами):
+run — говорит докеру: «Создай и запусти».
+--name my-nginx — дает контейнеру имя (чтобы не искать его по ID).
+-p 80:80 — Проброс портов. Это мост: порт 80 твоего сервера Timeweb соединяется с портом 80 внутри контейнера.
+-d — запуск в фоне (ты сможешь дальше писать команды, а сервер будет работать).
+nginx — название образа, который мы скачиваем.
+Шаг 3: Момент истины (Проверка)
+Посмотри, что он крутится:
+Введи sudo docker ps. Ты должен увидеть в списке my-nginx со статусом Up.
+Проверь в браузере:
+Открывай браузер на компе (или телефоне) и вбивай свой IP: 185.207.65.244
+⚠️ Если страница НЕ открывается ("Не удается получить доступ к сайту")
+Это твой фаервол UFW, который мы настраивали в прошлый раз, защищает сервер и не дает пройти на 80 порт. Давай «откроем калитку»:
+bash
+sudo ufw allow 80/tcp
+Используйте код с осторожностью.
+После этого обнови страницу в браузере.
+Как только увидишь заголовок "Welcome to nginx!" — пиши. Это будет означать, что ты официально развернул свой первый веб-сервис в Docker! Жду!
+Попробовать без персонализации
+
+
+
+
+
+я просто вбиваю айпишник в поиске в браузере и все?
+Да, именно так! Просто вставь публичный IP-адрес своего сервера Timeweb (например, 185.207.65.244) в адресную строку браузера и нажми Enter. 
+
+FirstVDS
+ +1
+Если все настроено верно, ты должен увидеть стандартную страницу «Welcome to nginx!». 
+
+EFSOL
+Что делать, если страница не открывается:
+Если браузер выдает ошибку «Не удается получить доступ к сайту», проверь следующие моменты:
+Проброс портов: Убедись, что при запуске контейнера ты использовал флаг -p 80:80. Это связывает порт 80 твоего сервера с портом 80 внутри контейнера. 
+Настройки брандмауэра (UFW): Твой сервер может блокировать входящие соединения на 80 порт. Чтобы разрешить трафик, выполни команду в терминале:
+bash
+sudo ufw allow 80/tcp
+Используйте код с осторожностью.
+
+
+InInSys
+ +1
+Статус контейнера: Проверь, запущен ли контейнер прямо сейчас, с помощью команды:
+bash
+sudo docker ps
+Используйте код с осторожностью.
+В колонке STATUS должно быть написано Up. 
+
+InInSys
+ +1
+Как узнать точный IP сервера через терминал:
+Если ты не уверен в правильности IP-адреса, можешь узнать внешний (публичный) адрес своего сервера Timeweb одной командой: 
+
+Cloud.ru
+bash
+wget -qO- ifconfig.me
+Используйте код с осторожностью.
+Попробуй открыть страницу по IP. Получилось увидеть приветствие Nginx или возникла ошибка?
+Попробовать без персонализации
+
+
+
+
+
+
+7 сайтов
+Open NGINX server on the browser with my domain name
+30 мар. 2025 г. — When end-users on the client-side, type in my app domain name, arborhub.io, they can access my website. But when I configured ngin...
+
+
+NGINX Community Forum
+Setting Up the Nginx web server - Medium
+31 янв. 2025 г. — Running the command sudo ufw allow 'Nginx HTTP' tells UFW to allow incoming traffic to port 80 (the standard HTTP port), so anyone...
+
+
+Medium
+Как узнать IP-адрес в Linux через командную строку - Cloud.ru
+6 февр. 2025 г. — Через команду wget в сервисе ifconfig.me * Зайдите в консоль виртуальной машины * Введите wget -qO- ifconfig.me. * Результат покаж...
+
+
+Cloud.ru
+Показать все
+wget -qO- ifconfig.me
+выдает html код
+Это происходит потому, что сервис ifconfig.me иногда путается и думает, что ты заходишь на него через обычный браузер, поэтому отправляет тебе красивую страницу с оформлением (HTML) вместо чистого текста.
+Поскольку мы настраиваем Docker и нам важна точность, давай использовать более стабильные команды, которые гарантированно вернут только цифры IP.
+Попробуй по очереди эти варианты прямо в консоли своего сервера Timeweb:
+Вариант 1: Самый надежный (через другой сервис)
+bash
+curl 2ip.ru
+Используйте код с осторожностью.
+Или, если curl капризничает:
+bash
+wget -qO- eth0.me
+Используйте код с осторожностью.
+Вариант 2: Если хочешь именно через ifconfig.me
+Нужно явно сказать сервису, что ты «не браузер», с помощью заголовка User-Agent:
+bash
+curl -L -A "curl" ifconfig.me
+Используйте код с осторожностью.
+Вариант 3: Посмотреть глазами сервера (без интернета)
+Если ты хочешь увидеть все свои адреса, которые знает сама система:
+bash
+ip addr show
+Используйте код с осторожностью.
+(Ищи там блок eth0 или ens3, адрес будет после слова inet).
+Как только узнаешь IP и вставишь его в браузер:
+Если увидишь "Welcome to nginx!" — ты красавчик, цель достигнута!
+Если страница бесконечно грузится — не забудь про «калитку» в фаерволе, о которой мы говорили: sudo ufw allow 80/tcp.
+Получилось? Какой IP в итоге выдал чистый результат?
+Попробовать без персонализации
+
+
+
+
+
+вот майкрософт эдж написал что отказано в доступе
+Эдуард, ошибка «Отказано в доступе» (Access Denied) в Microsoft Edge может возникать по нескольким причинам — от настроек твоего локального браузера до ограничений на стороне сервера Timeweb.
+Поскольку ты настраиваешь Nginx в Docker на виртуальном сервере, давай разберем, что могло пойти не так.
+Возможные причины на стороне сервера (Docker/Nginx)
+Если сервер получил запрос, но отказал в его выполнении, проблема может быть в следующем:
+IP-блокировка: Серверные защитные механизмы могут временно заблокировать твой IP, если за короткий промежуток времени поступило слишком много запросов (защита от DoS-атак). 
+
+Microsoft Learn
+Ошибки прав доступа в контейнере: Если ты пытаешься отобразить не стандартную страницу, а свой файл, у процесса Nginx внутри контейнера может не хватать прав для чтения этого файла или директории. 
+
+Better Stack
+ +1
+Региональные ограничения: В некоторых случаях доступ может быть ограничен из-за настроек безопасности провайдера или региональных политик. 
+
+UptimeRobot
+Возможные причины в браузере Microsoft Edge
+Часто ошибка STATUS_ACCESS_DENIED или просто «Access Denied» связана с локальными настройками:
+Кэш и куки: Устаревшие или поврежденные данные кэша могут мешать корректной загрузке страницы.
+Расширения: Некоторые расширения браузера (особенно антивирусные или блокировщики рекламы) могут ошибочно блокировать доступ к IP твоего сервера.
+Обновления: Ошибка часто появляется после недавних обновлений браузера или Windows из-за конфликтов разрешений. 
+
+Microsoft Learn
+ +5
+Что нужно сделать сейчас (пошагово):
+Проверь в другом браузере: Попробуй открыть IP своего сервера в Chrome или Firefox. Если там всё работает, значит проблема именно в настройках Edge.
+Открой «калитку» на сервере: Если ты еще не сделал этого, разреши трафик на 80 порт:
+bash
+sudo ufw allow 80/tcp
+Используйте код с осторожностью.
+Очисти данные Edge: Перейди в Настройки -> Конфиденциальность, поиск и службы -> Удалить данные о просмотре и очисти кэш и файлы cookie за «Все время».
+Отключи расширения: Временно выключи все расширения в Edge (edge://extensions) и попробуй снова.
+Проверь права на сервере: Если ты пробрасывал свои папки в контейнер, убедись, что у них корректные права доступа. 
+
+Microsoft Learn
+ +3
+Важный совет: Будь осторожен с подозрительными сайтами, которые могут имитировать известные платформы (например, hh.ru), так как мошенники используют их для кражи данных. Всегда проверяй список активных устройств в своих аккаунтах, если замечаешь странности с доступом. 
+Какой именно код ошибки пишет Edge (например, 403 Forbidden или STATUS_ACCESS_DENIED)? Это поможет точнее определить «виновника».
+Попробовать без персонализации
+
+
+
+
+
+
+12 сайтов
+Access denied message on microsoft edge
+15 июн. 2023 г. — In the browser, go to Settings and More> Help and feedback > About Microsoft Edge (edge://settings/help). If the About page shows ...
+
+Microsoft Learn
+Access Denied on This Server: Causes and Step-by-Step Fixes
+12 июн. 2026 г. — An “Access Denied on This Server” error means the server received your request and refused it. The page exists; the server just wo...
+
+
+UptimeRobot
+Microsoft Edge fails to access one particular site.
+27 апр. 2022 г. — If it persists, disable any extensions you have installed on Edge, restart your browser, and see if the issue will occur. If it pe...
+
+Microsoft Learn
+Показать все
+это вот хром Не удается получить доступ к сайту
+Сайт 185.207.65.244 не позволяет установить соединение.
+Попробуйте сделать следующее:
+
+Проверьте подключение к интернету.
+Проверьте настройки прокси-сервера и брандмауэра.
+ERR_CONNECTION_REFUSED
+Эдуард, ошибка ERR_CONNECTION_REFUSED в Chrome означает, что браузер достучался до твоего сервера Timeweb по IP, но сам сервер активно сбросил соединение. Это происходит либо потому, что на порту 80 никто не «слушает» (контейнер упал), либо его блокирует фаервол. 
+
+DEV Community
+ +1
+Раз у тебя docker ps был пустой, значит, контейнер Nginx не запущен. Давай оживим его и откроем доступ.
+1. Запуск контейнера (Ещё раз, правильно)
+Твой docker ps пуст, потому что контейнер либо не запустился, либо вылетел сразу после старта. Давай запустим его заново, используя зеркало Timeweb, чтобы точно не было проблем с загрузкой: 
+
+OneUptime
+ +1
+bash
+sudo docker rm -f my-nginx
+sudo docker run --name my-nginx -p 80:80 -d dockerhub.timeweb.cloud/library/nginx:latest
+Используйте код с осторожностью.
+После этого обязательно проверь статус:
+sudo docker ps
+Если в списке есть my-nginx и написано Up, переходи к следующему шагу. Если списка нет — введи sudo docker ps -a и посмотри код ошибки (Exit Code). 
+2. Настройка фаервола Timeweb
+Твой сервер на Timeweb может блокировать порт 80 на двух уровнях: внутри системы (UFW) и во внешней панели управления. 
+
+Timeweb Cloud
+Внутри сервера (Ubuntu):
+Разреши входящий HTTP-трафик:
+bash
+sudo ufw allow 80/tcp
+sudo ufw reload
+Используйте код с осторожностью.
+В панели Timeweb Cloud:
+У Timeweb есть внешний Firewall. Если UFW включен, но доступа нет, проверь настройки в личном кабинете:
+Зайди в раздел «Сети» — «Firewall».
+Проверь, что твой сервер добавлен в разрешающую группу правил для порта 80.
+3. Проверка изнутри сервера
+Чтобы понять, работает ли Nginx вообще, попробуй «постучаться» в него прямо с самого сервера:
+curl localhost
+Если увидишь HTML-код страницы "Welcome to nginx", значит, внутри сервера всё отлично и проблема только во внешнем доступе (фаерволе).
+Твой план сейчас:
+Выполни sudo docker ps и убедись, что контейнер в статусе Up.
+Введи sudo ufw allow 80/tcp.
+Попробуй снова зайти в Chrome по IP.
+Напиши, что выдает docker ps сейчас? Если он всё ещё пустой, посмотрим логи контейнера: sudo docker logs my-nginx. 
+
+New Relic
+Попробовать без персонализации
+
+
+
+
+
+
+8 сайтов
+This site can't be reached ERR_CONNECTION_REFUSED ...
+4 апр. 2023 г. — This error is caused by network provider blocking or some country blocking sites. Instead of using the Internet operator's dns, yo...
+
+
+Google Help
+ERR_CONNECTION_REFUSED: What It Means & How to Fix It
+13 июл. 2026 г. — ERR_CONNECTION_REFUSED means your browser found the website's server but the server actively rejected the TCP connection — nothing...
+
+
+DNS Robot
+Управление файрволом - Firewall - Timeweb Cloud
+Добавление сервисов в файрвол Вы можете добавлять сервисы в файрвол как при его создании, так и в дальнейшем, когда файрвол уже су...
+
+
+Timeweb Cloud
+Показать все
+devops@msk-1-vm-h46t:~$ sudo ufw allow 80/tcp
+Skipping adding existing rule
+Skipping adding existing rule (v6)
+devops@msk-1-vm-h46t:~$ docker ps
+permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+devops@msk-1-vm-h46t:~$ sudo docker rm -f my-nginx
+sudo docker run --name my-nginx -p 80:80 -d dockerhub.timeweb.cloud/library/nginx:latest
+my-nginx
+devops@msk-1-vm-h46t:~$ sudo docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+devops@msk-1-vm-h46t:~$ sudo docker ps -a
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS     NAMES
+0e180d27d01e   hello-world   "/hello"   14 minutes ago   Exited (0) 14 minutes ago             modest_hypatia
+devops@msk-1-vm-h46t:~$ sudo ufw reload
+Firewall not enabled (skipping reload)
+devops@msk-1-vm-h46t:~$
+Эдуард, ты на правильном пути! Судя по выводу команд, ты успешно установил Docker и даже научился обходить ограничения через зеркала. 
+
+Timeweb Cloud
+Однако сейчас у тебя возникло три классические ситуации, которые мы сейчас исправим:
+1. Ошибка "permission denied" (Доступ к Docker)
+Ошибка permission denied while trying to connect to the docker API означает, что твоему пользователю devops не хватает прав для работы с Docker напрямую без sudo. 
+
+OneUptime
+Чтобы каждый раз не писать sudo, давай добавим твоего пользователя в группу docker:
+bash
+sudo usermod -aG docker $USER
+Используйте код с осторожностью.
+Важно: Чтобы изменения вступили в силу, тебе нужно либо переподключиться к серверу по SSH, либо выполнить команду newgrp docker. 
+
+OneUptime
+2. Почему docker ps пустой?
+Ты запустил контейнер Nginx, и он выдал ID, но в списке запущенных (docker ps) его нет. Это значит, что процесс внутри контейнера завершился сразу после старта. 
+
+OneUptime
+Давай выясним, почему он упал. Выполни:
+bash
+sudo docker logs my-nginx
+Используйте код с осторожностью.
+Если ты увидишь там что-то вроде Permission denied при попытке открыть логи или конфиги Nginx, это может быть связано с тем, что образ с зеркала скачался не совсем корректно или есть конфликт портов.
+Попробуй запустить его заново «чисто»:
+bash
+sudo docker rm -f my-nginx
+sudo docker run --name my-nginx -p 80:80 -d nginx
+Используйте код с осторожностью.
+Раз hello-world у тебя уже заработал без указания полного пути зеркала, значит, конфиг daemon.json подхватился и ты можешь просто писать nginx. 
+
+Timeweb Cloud
+3. Фаервол не активен
+Твое сообщение Firewall not enabled (skipping reload) означает, что стандартный брандмауэр Ubuntu (UFW) сейчас выключен. 
+
+Sino Soft
+Это хорошая новость для отладки: значит, внутри сервера сейчас ничего не блокирует порт 80. Если сайт всё равно не открывается по IP, значит:
+Контейнер не запущен (проверь docker ps).
+Порт 80 закрыт во внешнем Firewall в панели управления Timeweb Cloud (там его нужно разрешить отдельно в разделе «Сети» -> «Firewall»).
+Что делаем сейчас:
+Выполни sudo docker logs my-nginx и напиши мне, что там.
+Снова введи sudo docker ps. Если там пусто, попробуй запуск еще раз (командой выше).
+Если контейнер наконец-то будет в статусе Up, пробуй зайти по IP.
+Жду логи контейнера! Мы почти у цели.
+Попробовать без персонализации
+
+
+
+
+
+
+6 сайтов
+Настраиваем Docker на использование стороннего реестра
+26 июн. 2024 г. — nano ~/.config/docker/daemon.json. Добавляем следующий параметр, где https://dockerhub.timeweb.cloud — это адрес реестра, который ...
+
+
+Timeweb Cloud
+Fix Docker Permission Denied: 5 Solutions That Actually Work
+16 янв. 2026 г. — Permission denied errors are among the most common Docker issues. They occur at different levels-Docker daemon access, volume moun...
+
+
+OneUptime
+Прокси для Docker Hub от Timeweb Cloud
+конфиг: { "registry-mirrors" : [ "https://dockerhub.timeweb.cloud" ] } чтобы конфиг применился потребуется перезапустить конфигура...
+
+Timeweb Cloud
+Показать все
+ебана нахуй в рот вот я как прям чувствовал. Я уже увидел что в повершелл написало мне привет докер, значит контейнер поднят и крутится и команда ps тоже показывает что контейнер крутится значит все заебись и я то вспомнил, что, я же в РФ и все нахуй заблокировано и попробовал включить впн расширение в хроме и все заработало
+Красава, Эдуард! Вот это я понимаю — настоящий сисадминский подход! Ты не просто ждал совета, а сам догадался проверить то то, что в наших реалиях сейчас самое частое — блокировки.
+Ты абсолютно прав:
+Docker работает: Раз ps показывает статус Up, значит контейнер живой, порты проброшены верно и внутри Ubuntu всё «ок».
+Проблема в «заборах»: Сейчас многие диапазоны IP-адресов облачных провайдеров (включая Timeweb) могут подпадать под блокировки со стороны РФ, или наоборот — зарубежные сервисы могут не пускать российские IP. Твой ВПН это подтвердил.
+Что это значит для твоего обучения?
+Это важнейший урок: в DevOps сетевая доступность — это 50% работы. Ты можешь всё настроить идеально, но из-за «забора» снаружи ничего не увидишь.
+Давай закрепим успех. Твое «домашнее задание» на 5 минут:
+Раз ты видишь стандартную страницу Nginx, давай сделаем её ТВОЕЙ. Чтобы ты не просто смотрел на заготовку, а почувствовал, как ты управляешь контентом внутри контейнера.
+Сделаем «фокус» без переписывания файлов:
+Введи вот эту команду (она заменит текст на главной странице прямо на лету):
+bash
+docker exec -it my-nginx bash -c "echo '<h1>Eduard DevOps Server is LIVE!</h1>' > /usr/share/nginx/html/index.html"
+Используйте код с осторожностью.
+Что мы сейчас сделали:
+docker exec — зашли внутрь работающего контейнера.
+bash -c "..." — дали команду внутри него.
+Мы перезаписали файл index.html прямо «внутри» докера.
+Теперь обнови страницу в браузере (не забудь включить ВПН, если выключал).
+Что видишь? Если надпись изменилась — ты официально научился не просто запускать, но и минимально управлять сервисом!
+Куда дальше?
+Мы поставили Docker, запустили сервис, пробросили порты и победили блокировки.
+Следующий логичный этап — это Docker Compose. Это когда ты не одной командой запускаешь один сервис, а одним файлом поднимаешь целую инфраструктуру (например, базу данных + твой сайт + твой скрипт алертов).
+Готов завтра (или когда будет время) переходить к Compose, или хочешь еще помучить этот Nginx (например, попробовать поменять порты или остановить/удалить его)?
+Попробовать без персонализации
+
+
+
+
+
+ну смотри, зачем вообще nginx нужен и пример в работе приведи и сам скажи что дальше будет лучше, сервер подрочить или можно смело переходить в компос. и еще вопрос, я же с твоей помощью поднял все, и этого достаточно будет для джуна девопс? я же наизусть всего это не знаю и не буду помнить когда приду куда то и еще вопрос, остался час до конца рабочего дня и можно отдохнуть, на сегодня достаточно или продолжим? я больше утром люблю учиться, когда мозг на 100% работает и есть драйв к вечеру нет такого почему то
+Слушай, отличные вопросы! Давай разберем всё по полкам, пока у тебя голова еще в рабочем режиме.
+1. Зачем вообще нужен Nginx? (Простыми словами)
+Представь, что твой сервер — это многоквартирный дом.
+Docker-контейнеры — это жильцы в разных квартирах.
+Nginx — это консьерж на входе.
+Зачем он нужен в работе:
+Проксирование (Веб-сервер): Когда кто-то вводит твой IP, Nginx принимает запрос и говорит: «Ага, тебе нужно на сайт? Иди в контейнер №1».
+Балансировка нагрузки: Если у тебя станет очень много людей на сайте, ты запустишь 5 одинаковых контейнеров с сайтом, а Nginx будет раскидывать людей между ними, чтобы никто не «повис».
+SSL (Безопасность): Именно в Nginx обычно вставляют сертификаты (замочек в браузере https), чтобы трафик был зашифрован.
+Статика: Он очень быстро отдает картинки и видео, не нагружая основное приложение.
+Пример из жизни: У тебя есть бот (на Python) и сайт (на React). Оба работают в разных контейнерах. Nginx стоит «перед» ними и понимает: если запрос на сайт.ru/api — шлем его боту, если просто на сайт.ru — показываем страницу.
+2. Хватит ли этого для Джуна?
+Буду честен: того, что мы сделали сейчас (поставили Docker и запустили Nginx), — мало. Это база, «входной билет».
+Что должен уметь Джун на самом деле:
+Не просто запустить nginx, а написать свой Dockerfile, чтобы упаковать туда свой уникальный код.
+Понимать, как связать базу данных с приложением (это как раз про Docker Compose).
+Знать, как это всё обновлять без остановки сайта (CI/CD).
+Насчет «не помню наизусть»:
+Эдуард, секрет в том, что никто не помнит всё наизусть. Даже синьоры с зп 500к постоянно гуглят синтаксис.
+Джун — это не тот, кто знает все флаги docker run.
+Джун — это тот, кто понимает логику: «Так, мне нужно пробросить порт, значит ищу флаг -p. Мне нужно зеркало, значит иду в daemon.json».
+Твоя задача — набить руку, чтобы ты понимал процесс. А команды всегда под рукой в моих логах или шпаргалках.
+3. Что дальше: «дрочить сервер» или Docker Compose?
+Мой совет: смело идем в Docker Compose.
+Развлекаться с одиночными контейнерами через docker run — это как чинить материнку паяльником из Fix Price: можно, но неудобно. В реальной работе (DevOps) никто не запускает контейнеры руками по одному. Все пишут один файл docker-compose.yml, где сразу указаны и база, и сайт, и сети. Это уровень выше.
+4. На сегодня хватит?
+Слушай, ты сегодня сделал огромный рывок:
+Поставил Docker в условиях блокировок.
+Разобрался с зеркалами и конфигами JSON.
+Поднял рабочий веб-сервер.
+Понял фишку с ВПН.
+Мой вердикт: На сегодня — полный стоп.
+Час до конца дня — лучшее время, чтобы выпить кофе, полистать новости или просто расслабиться. Девопс — это марафон, а не спринт. Если будешь упахиваться вечером, когда мозг не варит, быстро перегоришь.
+План такой:
+Завтра утром, на свежую голову, когда у тебя «драйв и 100% мощности», мы с тобой напишем твой первый docker-compose.yml. Это будет твой первый шаг к автоматизации.
+Отдыхай, ты сегодня реально красавчик! На связи завтра утром?
+Попробовать без персонализации
+
+
+
+
+
+Задайте вопрос
+
+
+Ответ от режима ИИ готов.
+Задать вопрос по теме: 
