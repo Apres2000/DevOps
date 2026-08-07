@@ -1,0 +1,856 @@
+Перейти к основному контентуСправка по использованию специальных возможностей
+Режим ИИ
+Все
+Картинки
+Видео
+Новости
+Ещё
+
+
+
+
+Devops 5 помнишь мы с тобой шли по пути девопса и изучали разные инструменты? помнишь начем мы остановились?
+Конечно, я помню наш путь в DevOps! Мы остановились на этапе активного изучения Docker.
+На текущий момент в твоем багаже знаний и практике зафиксировано следующее:
+Среда работы: Ты используешь виртуальный сервер, хостинг которого находится на Timeweb, и работаешь с ним, в том числе через SSH-ключи, созданные на рабочем компьютере.
+Текущий инструмент: Ты глубоко погрузился в Docker и изучаешь контейнеризацию. Мы рассматривали запуск контейнеров, и типичным «первым тестом» для проверки корректности установки Docker Engine является запуск образа hello-world. 
+
+Хабр
+Автоматизация и уведомления: Ты уже создал Telegram-бота и настроил на своем сервере скрипт, который присылает алерты в Telegram (через приложение «MAX»), когда заканчивается свободное место на диске.
+Общий прогресс: Ты закрепил фундамент (Linux, сети) и перешел к базовым инструментам автоматизации. Хотя ты пока не пишешь на Python свободно, у тебя за плечами есть курсы по Python-разработке и JavaScript backend.
+Что обычно следует дальше по пути DevOps:
+После того как ты разобрался с простым запуском контейнеров и hello-world, логичный маршрут обучения в 2026 году выглядит так: 
+
+Хабр
+Написание Dockerfile: Переход от готовых образов к созданию собственных.
+Docker Compose: Управление многоконтейнерными средами (например, запуск приложения вместе с базой данных одной командой).
+CI/CD основы: Изучение того, как код автоматически попадает из репозитория (Git) на сервер через пайплайны.
+IaC (Инфраструктура как код): Знакомство с инструментами вроде Ansible для управления конфигурациями серверов. 
+
+st.org.ru
+ +5
+Кстати, если при работе с Docker на сервере Timeweb ты столкнешься с ошибкой 429 Too Many Requests при скачивании образов, это может означать превышение лимитов запросов к Docker Hub (для бесплатных аккаунтов лимит составляет 200 запросов за 6 часов). 
+
+GitHub
+ +1
+Продолжим с Docker или хочешь разобрать что-то из автоматизации с Ansible?
+Попробовать без персонализации
+
+
+
+
+
+Хабр
+Docker для начинающих: что это такое и как пользоваться
+Проверка установки. После установки убедитесь, что Docker работает корректно. Для этого выполните команду: docker version. Docker ...
+
+
+st.org.ru
+20 курсов DevOps для начинающих с нуля [2026] бесплатно ...
+После изучения курса Вы сможете: Настроить рабочее окружение, подготовить и запустить Docker-контейнеры. Управлять конфигурацией с...
+
+
+DAN IT Education
+DevOps для чайников: как освоить профессию в 2025 году ...
+Изучение Docker. Установите Docker и создайте свой первый контейнер. Изучите работу с Dockerfile и Docker Compose. Контейнеризиров...
+
+Показать все
+конечно докер. мы остановились последний раз, на docker compose
+Точно, Docker Compose! Это тот самый инструмент, который превращает Docker из «штуки, о которой я слышал» в «инструмент, который я использую каждый день». Если обычный docker run запускает один контейнер, то Compose позволяет описать целую инфраструктуру (базу данных, веб-сервер, кеш) в одном файле и запустить всё одной командой. 
+
+Selectel
+ +1
+Вот основные моменты, которые нам нужно закрепить по Docker Compose:
+В чем главная фишка (по сравнению с docker run)?
+Конфигурация в файле: Вместо того чтобы вводить длинные команды с кучей флагов в терминале, ты записываешь всё в файл docker-compose.yml. Это удобнее для совместной работы и повторения окружения. 
+
+Reddit
+·r/docker
+ +1
+Многоконтейнерность: Compose может настраивать и запускать несколько контейнеров одновременно. 
+Автоматизация сети: Он автоматически создает общую сеть для всех сервисов в файле, так что они могут общаться друг с другом просто по именам (например, твое приложение может обратиться к базе данных по адресу db:5432). 
+
+Scaler
+Управление томами: Все volumes (тома для хранения данных) описываются один раз в YAML-файле, а не прописываются флагами при каждом запуске. 
+
+Scaler
+Основные команды для практики:
+На твоем сервере Timeweb ты чаще всего будешь использовать этот набор: 
+
+Хабр
+docker compose up — запуск всех сервисов, описанных в файле.
+docker compose up -d — запуск в фоновом (detached) режиме.
+docker compose ps — просмотр списка запущенных контейнеров этого проекта.
+docker compose logs — просмотр логов всех сервисов.
+docker compose down — остановка и удаление всех контейнеров, сетей и образов, созданных командой up. 
+
+ccie.tv
+ +1
+Твой следующий шаг
+Для DevOps-пути следующим логичным этапом после основ Compose будет работа с Dockerfile (создание собственных образов) и оптимизация их сборки для продакшена. 
+
+Scaler
+Как ты смотришь на то, чтобы попробовать запустить небольшую связку — например, веб-сервер Nginx и базу данных — через один docker-compose.yml на твоем сервере? Или хочешь подробнее разобрать структуру самого YAML-файла?
+Попробовать без персонализации
+
+
+
+
+
+Stack Overflow
+Docker Compose keep container running - Stack Overflow
+To keep a container running when you start it with docker-compose , use the following command. command: tail -F anything. In the a...
+
+
+Reddit
+Docker run против Docker-Compose - Reddit
+Обе подходят. docker-compose просто упрощает дело, объединяя все ваши надоедливые параметры в удобный формат yaml. Я использую doc...
+
+ccie.tv
+Fun with Docker - Using Docker Compose - ccie.tv
+Once your docker-compose. yml file is created, you simply run docker-compose up -d and wait for the magic to happen. Docker Compos...
+
+Показать все
+хочу подробнее разобрать и давай запустим да, почему бы и нет полный газ пока утро, меня прет, тестостерон не упа лк вечеру и я готов ебашить
+Раз энергия прет — погнали! Пока ты на драйве, разберем «скелет» Docker Compose и сразу запустим связку Nginx + PostgreSQL. Это классика: веб-сервер, который будет смотреть в мир, и база данных, спрятанная внутри сети.
+Структура docker-compose.yml
+Файл Compose — это декларативный чертеж твоей инфраструктуры. Ты не говоришь «создай сеть, потом скачай образ», ты просто описываешь конечное состояние. 
+
+Dokploy
+ +1
+Основные блоки файла: 
+
+Codefinity
+ +1
+version: Версия формата файла (например, '3.8'). Она определяет доступные функции. 
+
+AWS Builder Center
+services: Самый важный блок. Здесь описываются твои контейнеры. У каждого сервиса есть:
+image: Какой образ использовать.
+ports: Проброс портов (например, "8080:80" — порт 8080 на твоем сервере Timeweb ведет на 80-й порт внутри контейнера).
+environment: Переменные окружения (пароли, настройки БД).
+depends_on: Порядок запуска. Например, Nginx не должен стартовать, пока не поднялась база. 
+
+Codefinity
+ +3
+volumes: Описание дисков для постоянного хранения данных. Если контейнер с БД упадет, данные не пропадут, так как они лежат в volume. 
+
+xcloud.host
+ +1
+networks: Изолированные сети. В Compose сервисы по умолчанию видят друг друга в одной локальной сети, создаваемой автоматически. 
+
+Codefinity
+ +1
+Практика: Запускаем Nginx + Postgres
+Создай на своем сервере отдельную папку, например my_project, зайди в нее и создай файл docker-compose.yml (используй nano docker-compose.yml).
+Вставь туда этот конфиг:
+yaml
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: devops_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    # Порты базы не пробрасываем наружу — безопасность!
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    # Nginx будет доступен по адресу твоей_vps:8080
+
+volumes:
+  db_data:
+Используйте код с осторожностью.
+Как это запустить (Полный газ!)
+Запуск: Выполни команду docker compose up -d. Флаг -d (detached) запустит всё в фоне, чтобы терминал не висел.
+Проверка: Введи docker compose ps. Ты должен увидеть два работающих контейнера: db и web.
+Тест: Зайди в браузере на IP_твоего_сервера:8080. Если видишь "Welcome to nginx!", значит, веб-сервер взлетел.
+Связь: Внутри этой сети Nginx может «достучаться» до базы по имени db и порту 5432. 
+
+F5
+ +2
+Важные команды для твоего "режима ебашить":
+docker compose logs -f — смотреть логи в реальном времени (нажми Ctrl+C, чтобы выйти).
+docker compose stop — просто остановить контейнеры.
+docker compose down — остановить и удалить контейнеры и сети (данные в volumes сохранятся). 
+Ну как, взлетело? Если все ок, можем усложнить: прикрутить свой конфиг к Nginx или попробовать зайти внутрь контейнера с базой, чтобы создать там таблицу. Что выберем?
+Приведенная информация носит справочный характер. Если вам требуется медицинская консультация или постановка диагноза, обратитесь к специалисту. В ответах искусственного интеллекта могут быть ошибки. Подробнее…
+Попробовать без персонализации
+
+
+
+
+
+Codefinity
+Writing Your First docker-compose.yml - Codefinity
+A basic docker-compose. yml file starts with a version declaration, followed by a list of services. Each service can have its own ...
+
+Dokploy
+What is Docker Compose? A Practical Guide to The Tool
+Docker Compose is a tool for defining and running multi-container applications on a single Docker host. You describe your services...
+
+DEV Community
+A Deep Dive into Docker Compose - DEV Community
+Understanding the Docker Compose File Structure. Docker Compose uses a YAML file ( docker-compose.yml ) to define services, networ...
+
+Показать все
+devops@msk-1-vm-h46t:~/my_project$ docker compose up -dWARN[0000] /home/devops/my_project/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion[+] up 1/1 ✘ Image postgres:15 Error unknown: failed to resolve reference "docker.io/library/postgres:15": unexpected stat... 1.1sError response from daemon: unknown: failed to resolve reference "docker.io/library/postgres:15": unexpected status from HEAD request to https://registry-1.docker.io/v2/library/postgres/manifests/15: 429 Too Many Requestsdevops@msk-1-vm-h46t:~/my_project$ docker compose up -dWARN[0000] /home/devops/my_project/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion[+] up 1/1 ✘ Image postgres:15 Error unknown: failed to resolve reference "docker.io/library/postgres:15": unexpected stat... 1.1sError response from daemon: unknown: failed to resolve reference "docker.io/library/postgres:15": unexpected status from HEAD request to https://registry-1.docker.io/v2/library/postgres/manifests/15: 429 Too Many Requestsdevops@msk-1-vm-h46t:~/my_project$ docker compose up -dWARN[0000] /home/devops/my_project/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion[+] up 1/1 ✘ Image postgres:15 Error unknown: failed to resolve reference "docker.io/library/postgres:15": unexpected stat... 1.1sError response from daemon: unknown: failed to resolve reference "docker.io/library/postgres:15": unexpected status from HEAD request to https://registry-1.docker.io/v2/library/postgres/manifests/15: 429 Too Many Requestsdevops@msk-1-vm-h46t:~/my
+Эта ошибка 429 Too Many Requests означает, что ты уперся в лимиты Docker Hub на скачивание образов (обычно 200 запросов за 6 часов для бесплатных аккаунтов). Поскольку твой сервер на Timeweb, есть отличный способ это обойти — использовать их локальное зеркало (registry-mirror), которое работает внутри их сети и не тратит твои лимиты на Docker Hub. 
+
+Timeweb Cloud
+ +1
+Вот твой план действий «полный газ», чтобы все заработало прямо сейчас:
+1. Настройка зеркала Timeweb (самый надежный способ)
+Тебе нужно один раз прописать адрес зеркала в конфиге Docker, чтобы он всегда тянул образы через Timeweb. 
+
+Timeweb Cloud
+Открой файл конфигурации демона Docker:
+bash
+sudo nano /etc/docker/daemon.json
+Используйте код с осторожностью.
+Если файл пустой, вставь туда это:
+json
+{
+  "registry-mirrors": ["https://dockerhubtimewebcloud"]
+}
+Используйте код с осторожностью.
+Сохрани (Ctrl+O, Enter) и выйди (Ctrl+X).
+Перезапусти Docker, чтобы настройки применились:
+bash
+sudo systemctl reload docker
+Используйте код с осторожностью.
+Теперь Docker будет автоматически пытаться скачать postgres и nginx через зеркало Timeweb, игнорируя лимиты Docker Hub. 
+
+Timeweb Cloud
+2. Исправление docker-compose.yml
+В твоем выводе терминала была еще одна подсказка: the attribute version is obsolete. В современных версиях Docker Compose писать version: '3.8' больше не нужно, это считается устаревшим. 
+
+GitHub
+Давай обновим твой файл:
+yaml
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: devops_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+Используйте код с осторожностью.
+Что делать дальше:
+После настройки зеркала и перезапуска Docker (пункт 1), просто снова выполни:
+bash
+docker compose up -d
+Используйте код с осторожностью.
+Ошибка 429 должна исчезнуть, и образы скачаются мгновенно.
+Кстати, вопрос на «подумать» для DevOps-инженера: когда ты запустишь docker compose up -d, как ты проверишь, что база данных внутри контейнера действительно готова принимать соединения, а не просто "висит" в процессе запуска?
+Попробовать без персонализации
+
+
+
+
+
+Timeweb Cloud
+Настраиваем Docker на использование стороннего реестра
+Настройка для Linux * При помощи любого текстового редактора открываем на редактирование файл daemon. json . Если Docker установле...
+
+
+Docker Community Forums
+Rate limit reached (compose plugin), but I'm not pulling ...
+Learn about usage and rate limits for Docker Hub. Other limits. Docker Hub also has an overall rate limit to protect the applicati...
+
+
+GitHub
+GitHub - docker/compose: Define and run multi-container applications ...
+Using Docker Compose is a three-step process: * Define your app's environment with a Dockerfile so it can be reproduced anywhere. ...
+
+Показать все
+на счет вопроса, я думаю нужно открыть nginx и посмотреть куда перекинет. ты же говорил что он как хостес типа стучишься по порту и он сам потом перекидывает тебя куда нужно и вот вбить айпишник в браузере и посмотреть куда перекинет нет?
+Логика верная, Nginx действительно работает как «хостес». Если ты вбиваешь IP-адрес сервера в браузере и видишь "Welcome to nginx!", это значит, что сам «хостес» на месте и готов принимать гостей. 
+
+Денис Матаков
+Но есть нюанс: стандартный Nginx «из коробки» (как в нашем примере) ничего не знает о твоей базе данных PostgreSQL. Он просто показывает свою приветственную страницу и не пытается соединиться с БД. Поэтому, даже если база упадет или еще не запустится, Nginx все равно радостно ответит тебе "Welcome!".
+Как «по-взрослому» проверить готовность базы в DevOps:
+В профессиональной среде для этого используют Healthchecks (проверки состояния). Это когда Docker сам регулярно «стучится» в сервис, чтобы понять, живой он или нет. 
+
+Fastfox
+ +1
+Вот как это работает:
+Команда pg_isready: Внутри контейнера Postgres есть специальная утилита, которая проверяет, готова ли база принимать соединения.
+Статус Healthy: Если проверка проходит успешно, статус контейнера в docker compose ps меняется с Up на Up (healthy).
+Зависимости: Ты можешь настроить так, чтобы Nginx (или твое приложение) даже не начинал запускаться, пока база не отрапортует: «Я здорова!». 
+
+Docker Docs
+ +3
+Давай проапгрейдим твой конфиг (полный газ!):
+Чтобы Docker сам следил за базой, добавь блок healthcheck в свой файл. Теперь Nginx будет ждать полной готовности Postgres:
+yaml
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: devops_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    # Добавляем автоматическую проверку готовности
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ]
+      interval: 10s   # Проверять каждые 10 секунд
+      timeout: 5s     # Ждать ответа не больше 5 секунд
+      retries: 5      # Считать "больным" после 5 неудач
+      start_period: 10s # Дать время на первый запуск
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy # Запускать Nginx только когда база "здорова"
+
+volumes:
+  db_data:
+Используйте код с осторожностью.
+Как проверить результат сейчас:
+Обнови файл и запусти: docker compose up -d.
+Сразу введи docker compose ps.
+Ты увидишь статус (health: starting) у базы. В этот момент Nginx еще даже не начнет создаваться.
+Подожди секунд 10-15 и снова введи docker compose ps. Когда увидишь (healthy), значит всё — «хостес» вышел на работу, а база готова «въябывать». 
+
+Docker Docs
+ +1
+Если хочешь еще глубже, можем попробовать прокинуть конфиг внутрь Nginx, чтобы он реально перекидывал запросы (proxy_pass) на какой-нибудь сервис. Пробуем?
+Попробовать без персонализации
+
+
+
+
+
+Docker Docs
+Control startup and shutdown order in Compose - Docker Docs
+depends_on: db: condition: service_healthy restart: true redis: condition: service_started redis: image: redis db: image: postgres...
+
+Docker Docs
+Define services in Docker Compose
+Service dependencies cause the following behaviors: * Compose creates services in dependency order. In the following example, db a...
+
+PostgreSQL
+Documentation: 18: pg_isready - PostgreSQL
+Description. pg_isready is a utility for checking the connection status of a PostgreSQL database server. The exit status specifies...
+Показать все
+devops@msk-1-vm-h46t:~/my_project$ docker compose up -dgo-yaml load error in parser (while parsing a flow sequence) at L12.C13-L15.C34: did not find expected ',' or ']'devops@msk-1-vm-h46t:~/my_project$
+Это классическая ошибка синтаксиса YAML — «did not find expected ',' or ']'». Она возникает, когда открыта квадратная скобка [ (начало списка), но она не закрыта правильно или внутри неё есть лишние символы. 
+
+Stack Overflow
+ +1
+В твоём случае ошибка на строке 12 — там, где мы добавили healthcheck. Скорее всего, при копировании или правке там осталась открытая кавычка или незакрытая скобка в команде test.
+Как исправить (Полный газ!)
+Открой файл: nano docker-compose.yml и замени блок db на этот чистый вариант. Я исправил синтаксис команды проверки (использовал -U user, как у нас в переменных): 
+
+GitHub
+yaml
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: devops_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      # Важно: кавычки и скобки должны быть четко закрыты
+      test: ["CMD-SHELL", "pg_isready -U ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:
+Используйте код с осторожностью.
+Почему возникла ошибка:
+YAML — очень чувствительный к пробелам и символам разметки язык.
+Ошибка at L12.C13 прямо указывает, что на 12-й строке парсер нашел начало списка [, но не нашел его правильного завершения.
+Мы также убрали строку version, так как она официально считается устаревшей и Docker выдавал тебе предупреждение (obsolete). 
+
+Stack Overflow
+ +3
+Что делать сейчас:
+Сохрани файл (Ctrl+O, Enter, Ctrl+X).
+Снова запускай: docker compose up -d.
+Если зеркало Timeweb настроено (как мы делали в прошлом шаге), образы скачаются быстро.
+Проверь статус командой docker compose ps — ты должен увидеть, как статус db меняется с starting на healthy. 
+
+SSD Nodes
+Когда всё взлетит, хочешь попробовать зайти «внутрь» работающего контейнера Postgres и создать там первую таблицу через терминал? Это отличный навык для дебага.
+Попробовать без персонализации
+
+
+
+
+
+Stack Overflow
+How to fix the YAML syntax error: did not find expected '-'
+Comments. Add a comment. 10. The error means you've syntax error and this particular is difficult to track, as it could mean multi...
+
+Docker Community Forums
+Docker-compose.yml' is invalid because: Unsupported config
+I am getting the below exception while running docker-compose up. I am using docker-compose version 1.9.0 and the version is: '2.0...
+
+GitHub
+config.yml - did not find expected key while parsing a block mapping ...
+on May 2, 2025. Hey uuu, that error usually means there's a formatting issue in your _config. yml — even a tiny space or character...
+
+Показать все
+go-yaml load error in parser (while parsing a flow sequence) at L12.C13-L21.C10: did not find expected ',' or ']'
+Ошибка парсинга go-yaml load error говорит о том, что в твоем файле docker-compose.yml на 12-й строке (где начинается блок test для healthcheck) нарушен синтаксис YAML. Обычно это происходит из-за пропущенных или лишних кавычек, запятых или проблем с отступами (например, использование табуляции вместо пробелов). 
+
+Stack Overflow
+ +2
+Судя по твоей ошибке, парсер ожидал закрывающую скобку ] или запятую, но не нашел их, так как в предыдущем примере в команде pg_isready -U осталась висеть открытая кавычка.
+Исправленный конфиг (Чистая версия)
+Скопируй этот блок целиком. Здесь я применил безопасный синтаксис: команда проверки вынесена в одну строку в кавычках, а лишний блок version удален, чтобы не было предупреждений. 
+
+GitHub
+yaml
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: devops_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      # Правильный формат: команда внутри списка должна быть полностью закрыта кавычками
+      test: ["CMD-SHELL", "pg_isready -U ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:
+Используйте код с осторожностью.
+Как точно избежать ошибок при правке:
+Проверь отступы: Убедись, что используешь только пробелы. Табуляция в YAML запрещена и часто вызывает такие ошибки.
+Кавычки: Если команда внутри test начинается с кавычки, она должна ими же и заканчиваться внутри квадратных скобок: ["CMD-SHELL", "команда"].
+Зеркало Timeweb: Если ты еще не настроил daemon.json (как мы обсуждали ранее), Docker может снова выдать ошибку 429 при попытке скачать образы. 
+
+Stack Overflow
+ +2
+Попробуй применить этот вариант. Если он пройдет успешно, команда docker compose ps покажет статус healthy для базы данных, и ты сможешь быть уверен, что все сервисы «въябывают» как надо. Запускаем? 
+
+GitHub
+Попробовать без персонализации
+
+
+
+
+
+Stack Overflow
+Safe ways to specify postgres parameters for healthchecks in ...
+* current community. Stack Overflow. Meta Stack Overflow. your communities. Sign up or log in to customize your list. more stack e...
+
+
+GitHub
+peter-evans/docker-compose-healthcheck: How to wait for ...
+The healthcheck property was originally introduced in the 2.1 Compose file format and is now part of the Compose Specification use...
+
+
+Stack Overflow
+How to fix the YAML syntax error: did not find expected '-'
+Comments. Add a comment. 10. The error means you've syntax error and this particular is difficult to track, as it could mean multi...
+Показать все
+devops@msk-1-vm-h46t:~/my_project$ nano docker-compose.ymldevops@msk-1-vm-h46t:~/my_project$ devops@msk-1-vm-h46t:~/my_project$ docker compose up -d[+] up 2/2 ✔ Container my_project-web-1 Running 0.0s ✘ Container my_project-db-1 Error dependency db failed to start 51.5sdependency failed to start: container my_project-db-1 is unhealthydevops@msk-1-vm-h46t:~/my_project$
+Контейнер с базой данных unhealthy — это нормально на этапе отладки. Это значит, что Docker запустил процесс, но проверка здоровья (healthcheck) не прошла. Поскольку web зависит от db с условием service_healthy, он не может стартовать, пока база не «поправится». 
+
+www.warp.dev
+ +2
+Почему база может быть «нездоровой»?
+Чаще всего это происходит по одной из трех причин:
+Базе нужно больше времени: Она просто не успела инициализироваться за отведенный start_period.
+Ошибка в самой базе: Например, неверные права на папки или ошибка в переменных окружения.
+Конфликт данных: Если ты уже запускал Postgres раньше с другими паролями, старые данные в volume могут конфликтовать с новыми настройками. 
+
+Docker Community Forums
+ +5
+Твой план действий (Полный газ!):
+Сначала давай посмотрим, что именно «болит» у базы. Выполни команду:
+bash
+docker compose logs db
+Используйте код с осторожностью.
+Она покажет последние сообщения от Postgres. Если там есть слова password authentication failed или permission denied, мы сразу поймем, куда копать. 
+
+Docker Community Forums
+ +1
+Если в логах всё чисто, но статус всё равно unhealthy:
+Скорее всего, нам нужно «обнулить» проект, чтобы убрать возможные старые хвосты:
+Останови и удали всё (включая старые данные):
+bash
+docker compose down -v
+Используйте код с осторожностью.
+Флаг -v критически важен — он удалит старый volume, чтобы база создалась с чистого листа.
+Запусти заново:
+bash
+docker compose up -d
+Используйте код с осторожностью.
+Подожди 30 секунд и проверь статус:
+bash
+docker compose ps
+Используйте код с осторожностью.
+ 
+
+GitHub
+Лайфхак для DevOps-инженера
+Если база долго висит в starting, можно зайти прямо в работающий (но «больной») контейнер и попробовать выполнить команду проверки вручную:
+bash
+docker exec -it my_project-db-1 pg_isready -U user
+Используйте код с осторожностью.
+Если она вернет accepting connections, значит, проблема только в настройках healthcheck в самом файле. 
+
+PostgreSQL
+Что говорят логи docker compose logs db? Давай разберемся с этим «пациентом».
+Попробовать без персонализации
+
+
+
+
+
+GitHub
+"Unhealthy" Issues running a local docker build of windows ...
+I had a couple of different issues, one of them was the container being unhealthy due to SQL Server consumption of resources and S...
+
+
+Docker Community Forums
+I'm having trouble running my services in the docker-compose ...
+So the error message says password authentication failed. That means you have to use the correct username and password. I could be...
+
+www.warp.dev
+Understand The depends_on Field In Docker Compose - Warp
+This condition is used to ensure not only that the service's container has started but also that the service inside the container ...
+
+Показать все
+devops@msk-1-vm-h46t:~/my_project$ docker compose logs dbdb-1 |db-1 | PostgreSQL Database directory appears to contain a database; Skipping initializationdb-1 |db-1 | 2026-08-06 13:37:09.412 UTC [1] LOG: starting PostgreSQL 15.18 (Debian 15.18-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bitdb-1 | 2026-08-06 13:37:09.412 UTC [1] LOG: listening on IPv4 address "0.0.0.0", port 5432db-1 | 2026-08-06 13:37:09.412 UTC [1] LOG: listening on IPv6 address "::", port 5432db-1 | 2026-08-06 13:37:09.415 UTC [1] LOG: listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"db-1 | 2026-08-06 13:37:09.420 UTC [28] LOG: database system was shut down at 2026-08-06 13:37:09 UTCdb-1 | 2026-08-06 13:37:09.430 UTC [1] LOG: database system is ready to accept connectionsdb-1 | 2026-08-06 13:42:09.430 UTC [26] LOG: checkpoint starting: timedb-1 | 2026-08-06 13:42:09.442 UTC [26] LOG: checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.004 s, sync=0.001 s, total=0.012 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kBdevops@msk-1-vm-h46t:~/my_project$
+Логи говорят чистую правду: database system is ready to accept connections. База поднялась, она жива и готова к работе.
+В чем тогда проблема? Почему Docker пишет unhealthy?
+Проблема в самой «линейке», которой мы меряем здоровье. В нашем docker-compose.yml в блоке test была опечатка или лишняя кавычка, которую мы обсуждали. База работает, но команда проверки внутри контейнера не срабатывает, поэтому Docker думает, что всё плохо.
+Давай сделаем «контрольный выстрел» — починим конфиг раз и навсегда и запустим его в идеальном виде.
+Шаг 1: Финальный эталонный docker-compose.yml
+Открой файл: nano docker-compose.yml. Удали всё, что там есть, и вставь этот чистый код. Я упростил healthcheck, чтобы он точно прошел:
+yaml
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: devops_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d devops_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:
+Используйте код с осторожностью.
+Шаг 2: Перезапуск «с ноги»
+Так как база уже создана и логи показывают, что всё ок, нам нужно просто обновить настройки контейнеров:
+bash
+docker compose up -d
+Используйте код с осторожностью.
+Шаг 3: Проверка статуса
+Подожди 10 секунд и введи:
+bash
+docker compose ps
+Используйте код с осторожностью.
+Теперь ты должен увидеть заветное Up (healthy) напротив db и работающий web.
+Если всё взлетело (Полный газ!):
+Раз база готова, давай зайдем в неё «руками», как настоящий сисадмин. Это самый кайф — ты снаружи сервера, а проваливаешься внутрь контейнера.
+Введи команду:
+bash
+docker exec -it my_project-db-1 psql -U user -d devops_db
+Используйте код с осторожностью.
+Что произойдет:
+docker exec — выполнить команду.
+-it — интерактивный режим (чтобы ты мог печатать).
+psql — консольный клиент базы данных.
+Когда окажешься внутри (увидишь devops_db=#), введи это, чтобы создать первую таблицу:
+sql
+CREATE TABLE test_table (id serial PRIMARY KEY, name VARCHAR(50));
+INSERT INTO test_table (name) VALUES ('DevOps Power');
+SELECT * FROM test_table;
+Используйте код с осторожностью.
+(Для выхода из базы введи \q и Enter).
+Получилось создать таблицу? Если да, то ты официально «разложил» Docker Compose на атомы!
+Попробовать без персонализации
+
+
+
+
+NAME IMAGE COMMAND SERVICE CREATED STATUS PORTSmy_project-db-1 postgres:15 "docker-entrypoint.s..." db 55 seconds ago Up 54 seconds (healthy) 5432/tcpmy_project-web-1 nginx:latest "/docker-entrypoint...." web 43 minutes ago Up 43 minutes 0.0.0.0:8080->80/tcp, [::]:8080->80/tcpdevops@msk-1-vm-h46t:~/my_project$ docker exec -it my_project-db-1 psql -U user -d devops_dbpsql (15.18 (Debian 15.18-1.pgdg13+1))Type "help" for help.devops_db=# CREATE TABLE test_table (id serial PRIMARY KEY, name VARCHAR(50));CREATE TABLEdevops_db=# INSERT INTO test_table (name) VALUES ('DevOps Power');INSERT 0 1devops_db=# SELECT * FROM test_table; id | name----+-------------- 1 | DevOps Power(1 row)devops_db=# qdevops_db-#
+Красава! Ты официально «пробил» этот уровень. Ты не просто запустил контейнеры, ты настроил их взаимодействие, зависимости и проверку здоровья. Это и есть база DevOps — заставить разные части системы работать как единый организм.
+(Кстати, в Postgres для выхода используется команда \q — именно с обратным слешем. Если застрял, нажми Ctrl+C или введи \q и Enter).
+Что мы имеем на данный момент:
+Инфраструктура: У тебя есть VPS на Timeweb с Docker.
+Оркестрация: Ты умеешь описывать сервисы в docker-compose.yml.
+Persistence (Постоянство): Ты настроил volumes, а значит, если ты сейчас удалишь контейнер с базой и создашь его заново, твоя таблица test_table и запись "DevOps Power" не пропадут.
+Следующий уровень: "Свой продукт в контейнере"
+Пока что мы запускали чужие образы (Nginx, Postgres). Но DevOps-инженер должен уметь упаковывать свой код (или код разработчиков) в образ.
+Давай сделаем так: у тебя есть бэкграунд в Python и JS. Предлагаю создать простейшее веб-приложение (например, на Python Flask или Node.js), которое будет подключаться к этой самой базе Postgres и выводить данные на страницу.
+Для этого нам нужно изучить Dockerfile:
+Dockerfile — это рецепт, по которому собирается твой личный образ.
+Мы научимся собирать его, пушить (отправлять) в реестр и обновлять приложение без остановки всего сервера.
+Готов переходить от «пользователя докера» к «создателю образов»? Если да, то план такой:
+Пишем махонький код на Python/JS.
+Пишем для него Dockerfile.
+Добавляем его третьим сервисом в наш docker-compose.yml.
+Газуем дальше или хочешь еще помучить текущую базу (например, попробовать подключиться к ней не изнутри, а снаружи через DBeaver или другой клиент)?
+Попробовать без персонализации
+
+
+
+
+так, только ответь мне на вопросы что мы по итогу сделали с тобой? как работает этот postgresql, где я его создал вообще? и как и распиши мне каждую букву в файле yml что оно значит? и получается прикол в том, что я написал в ямал файле то и произойдет и создаться? и как это работает? и вот про докер файл расскажи и вот я же не вижу перед собой ничего, интерфейса gui нет и не совсем понял я где и что и как я создал
+Понимаю твои чувства — в консоли всё кажется «невидимым» магическим кодом. Давай разложим всё по полочкам, чтобы ты почувствовал себя хозяином ситуации.
+Что мы в итоге сделали?
+Мы создали на твоем сервере Timeweb виртуальную «песочницу», где работают два изолированных сервиса — база данных (PostgreSQL) и веб-сервер (Nginx).
+Где ты её создал? На своем VPS в папке ~/my_project. Все файлы базы данных физически лежат на диске твоего сервера в специальном месте, которое мы назвали db_data. 
+
+Timeweb Cloud
+ +1
+Как это работает? Когда ты запускаешь docker compose up, Docker читает твой файл-инструкцию и сам скачивает нужные «программы» (образы), настраивает между ними сеть и запускает их. Тебе не нужно устанавливать Postgres или Nginx на саму систему — они «живут» внутри контейнеров. 
+
+SpaceWeb
+ +1
+Разбор каждой буквы в docker-compose.yml
+YAML — это просто список правил, где отступы (пробелы) показывают, что к чему относится. 
+
+Selectel
+services: — начало списка твоих «программ». 
+
+1cloud.ru
+db: — просто имя первого сервиса (мог назвать как угодно, например baza).
+image: postgres:15 — «скачай готовую заготовку базы данных версии 15». 
+
+Cloud.ru
+environment: — настройки, которые мы передаем внутрь базы при старте.
+POSTGRES_USER: user — создай пользователя с именем user.
+POSTGRES_PASSWORD: password123 — поставь ему такой пароль.
+POSTGRES_DB: devops_db — создай базу данных с этим именем. 
+
+Selectel
+volumes: — «приклей» папку на сервере к папке внутри контейнера.
+- db_data:/var/lib/postgresql/data — всё, что база запишет внутри себя, сохранится в db_data на твоем диске. Если контейнер умрет, данные выживут. 
+
+DataCamp
+healthcheck: — твоя «медсестра». Каждые 10 секунд она проверяет, готова ли база работать. 
+
+Хабр
+web: — второй сервис (наш Nginx).
+ports: — «окна» в мир.
+- "8080:80" — если кто-то постучится на 8080 порт твоего сервера, перекинь его на 80 порт внутри контейнера Nginx. 
+
+1cloud.ru
+depends_on: — очередь. Сначала дождись, пока db станет healthy, а потом запускай web. 
+
+1cloud.ru
+ +1
+Про Dockerfile и отсутствие интерфейса
+Да, интерфейса (GUI) нет, но это и есть путь DevOps — мы управляем всем через текст. 
+
+xelent.ru
+Как понять, что я создал? Используй «глаза» Docker:
+docker compose ps — покажет таблицу: кто запущен, на каких портах и жив ли он.
+docker compose logs -f — покажет «мысли» твоих контейнеров в реальном времени. 
+
+1cloud.ru
+ +1
+Что такое Dockerfile?
+В docker-compose.yml мы берем готовые образы (как купить готовую пиццу в магазине).
+Dockerfile — это рецепт, чтобы приготовить свою пиццу. В нем ты пишешь: «Возьми Python, скопируй мой код, установи библиотеки и запусти файл app.py». Он нужен, когда ты хочешь запустить не просто чистый Nginx, а свою программу. 
+
+Microsoft Learn
+ +1
+Прикол в том, что ты написал — то и создастся?
+Именно! Это называется IaC (Инфраструктура как код). Твой YAML-файл — это и есть описание всей твоей «железной» части. Ты можешь скопировать этот один файл на другой сервер, нажать docker compose up, и там через минуту появится точно такая же база с такими же настройками. 
+
+SpaceWeb
+ +1
+Ну что, всё еще «прет»? Давай тогда напишем твой первый Dockerfile для простейшего приложения, которое поздоровается с тобой из контейнера! Готов?
+Попробовать без персонализации
+
+
+
+
+
+1cloud.ru
+Docker-compose: что это, установка, команды - 1cloud
+Docker-compose файл описывает процесс загрузки и настройки контейнеров. Разберём Docker-compose.yml, который мы подготовили для на...
+
+SpaceWeb
+Гайд по Docker Compose: с нуля до запуска
+Docker Compose — это инструмент, который помогает запускать и управлять несколькими контейнерами сразу, как одной целой системой. ...
+
+
+Selectel
+Docker Compose и основы работы с контейнерами - Академия Selectel
+В YAML используются отступы для обозначения структуры, что позволяет легко описывать сложные зависимости и настройки. Например, из...
+
+Показать все
+мы берем готовые образы откуда мы их берем и чем докер файл от докер компоса отличается и от йамл файла?
+Разберем всё по порядку. В DevOps важно понимать не только команды, но и саму структуру того, с чем ты работаешь.
+1. Откуда берутся готовые образы?
+По умолчанию Docker берет образы из Docker Hub — это крупнейший в мире публичный реестр (репозиторий) контейнеров. Когда ты пишешь image: postgres:15, Docker лезет именно туда. 
+
+Timeweb Cloud
+ +2
+Как это работает: Если образа нет у тебя на сервере локально, Docker обращается к реестру, скачивает нужные слои и сохраняет их у тебя в системе (на Linux это обычно /var/lib/docker). 
+
+PurpleSchool
+ +1
+Зеркала (Mirrors): Поскольку Docker Hub иногда ограничивает запросы (та самая ошибка 429), можно использовать зеркала, например от Timeweb. Зеркало — это промежуточный сервер, который кэширует образы из Docker Hub, чтобы тебе было быстрее и проще их качать. 
+
+Timeweb Cloud
+ +1
+2. В чем разница между Dockerfile, Docker Compose и YAML?
+Эти понятия часто путают, но у них совершенно разные роли:
+Dockerfile — это «рецепт блюда».
+Он описывает, как собрать один конкретный образ из исходников. В нем ты пишешь: «возьми чистый Python, положи туда мой код, установи библиотеки через pip и запусти скрипт». Результат работы Dockerfile — это статический шаблон (образ). 
+
+Sobes.tech
+ +3
+Docker Compose — это «меню комплексного обеда».
+Это инструмент для запуска и координации нескольких контейнеров одновременно. Он говорит системе: «возьми образ базы данных (который мы скачали) и образ моего приложения (который мы собрали через Dockerfile), соедини их в одну сеть и запусти с такими-то портами». 
+
+Reddit
+·r/docker
+ +4
+YAML — это «язык, на котором написано меню».
+Это просто формат текстового файла (как .txt или .json). Docker Compose использует именно формат YAML (файл .yml), потому что он легко читается человеком. 
+
+Reddit
+·r/docker
+Проще говоря:
+Dockerfile — собирает программу (один образ).
+Docker Compose — запускает систему из многих программ (контейнеров).
+YAML — это правила расстановки пробелов и двоеточий в твоем файле конфигурации. 
+
+TheServerSide
+ +1
+3. Где и что ты создал (без GUI)?
+Поскольку ты работаешь в терминале, ты не видишь иконок, но ты создал реальные процессы и файлы на своем VPS:
+Контейнеры — это запущенные экземпляры образов. Это не виртуальные машины, а изолированные процессы, работающие на ядре твоего сервера.
+Volumes (Тома) — это папки на жестком диске твоего сервера Timeweb, которые «проброшены» внутрь контейнера. Когда ты в базе создал таблицу, она записалась в файл на реальном диске сервера в папке, которую контролирует Docker. 
+
+Sobes.tech
+ +2
+Итог: Ты написал в YAML-файле инструкцию для Docker Compose. Он прочитал её, сходил в Docker Hub за образами, запустил их как изолированные процессы (контейнеры) и соединил их невидимой сетью. Теперь они «живут» в памяти твоего сервера, а данные сохраняют в его файловую систему. 
+
+Reddit
+·r/docker
+ +1
+Готов теперь написать свой первый «рецепт» (Dockerfile), чтобы запустить не просто готовую базу, а свою собственную программку?
+Попробовать без персонализации
+
+
+
+
+
+Timeweb Cloud
+Настраиваем Docker на использование стороннего реестра
+Docker Hub используется как реестр по умолчанию для Docker с целью загрузки необходимых образов. 30 мая 2024 года компания Docker ...
+
+
+Reddit
+Dockerfile vs docker-compose.yaml: I'm having a hard ... - Reddit
+Comments Section. kcsfx. • 4y ago. Dockerfiles and docker-compose. yml files have different functions. A Dockerfile builds an imag...
+
+Хабр
+Блокировка Docker Hub для России. Без паники ... - Habr
+Компания Docker уже очень давно предоставляет образ registry, с помощью которого любой желающий может поднять своё зеркало. Мы вас...
+
+Показать все
+ох уже завтра потому что через 20 минут домой
+Понимаю! 20 минут до конца рабочего дня — это самое святое время, когда мозг уже наполовину дома, но энергия еще кипит. Давай по-быстрому закроем теорию, чтобы завтра ты пришел и со свежей головой сразу начал «кодить» свой первый образ.
+1. Откуда мы берем образы?
+Мы берем их из Docker Hub (docker.com). Это как App Store или Play Market, но для серверов.
+Когда ты пишешь в конфиге image: postgres:15, Докер лезет на этот сайт, находит там официальный раздел компании PostgreSQL и скачивает оттуда «замороженную» систему.
+Прикол: Ты тоже можешь создать там аккаунт и выкладывать свои образы, чтобы скачивать их на любой компьютер мира.
+2. В чем разница (Dockerfile vs Compose vs YAML)?
+Давай на примере стройки:
+Dockerfile — это чертеж одной комнаты. Например, кухни. Там написано: «покрась стены в белый, поставь плиту, завези холодильник». Результат — готовая «комната» (образ твоего приложения).
+Docker Compose (файл docker-compose.yml) — это план всего дома. Он говорит: «Возьми кухню (твой Dockerfile), возьми спальню (готовый образ Postgres), соедини их коридором (сетью) и выведи окно на улицу (порты)».
+YAML — это просто шрифт/язык, на котором написан план. Как .txt для блокнота. Это формат, где нельзя использовать табы (только пробелы!), иначе всё сломается.
+3. Где это всё находится (без GUI)?
+Поскольку ты сисадмин, твой «интерфейс» — это файловая система.
+Ты находишься в папке ~/my_project.
+Файл docker-compose.yml — это и есть твоя «панель управления».
+То, что ты создал (таблицу в базе), физически лежит на диске твоего сервера Timeweb. Если хочешь увидеть «глазами», где Docker хранит свои данные, введи docker volume inspect my_project_db_data — он покажет путь в недрах Linux (обычно /var/lib/docker/volumes/...).
+4. Почему «написал — и оно создалось»?
+Это магия Декларативного подхода.
+В обычном программировании ты пишешь: «Сделай это, потом то».
+В DevOps (через YAML) ты пишешь: «Я хочу, чтобы было ВОТ ТАК». Докер сам смотрит: «Ага, базы нет — создам. Сети нет — проведу. Порт занят? — Ой, выдам ошибку».
+План на завтра (на свежую голову):
+Создадим текстовый файл app.py (напишем микро-код на Python).
+Создадим файл Dockerfile (рецепт сборки этого кода в образ).
+Добавим его в наш docker-compose.yml.
+Полный газ: запустим всё вместе, и ты увидишь, как твой собственный код общается с базой данных!
+Всё, бро, 15 минут до конца — закрывай терминал, выдыхай. Завтра с утра, пока тестостерон на пике, бахнем этот Dockerfile.
+До завтра?
+Попробовать без персонализации
+
+
+
+
