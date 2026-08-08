@@ -30,7 +30,7 @@ def connect_to_db():
 
 @app.route('/')
 def home():
-    return "Сервер работает, Docker-мост настроен!"
+    return "Сервер работает, Docker-мост настроен!" "и теперь, у меня работает автоматический CI/CD деплой через GitHub Actions!"
 
 if __name__ == "__main__":
     # Сначала проверяем базу, потом запускаем Flask
