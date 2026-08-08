@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: dockerhub.timeweb.cloud/library/postgres:15
+    environment:
+      POSTGRES_DB: my_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass_key
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d my_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  python_app:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POSTGRES_DB: my_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass_key
+
