@@ -41,3 +41,16 @@ services:
     ports:
       - "9100:9100"
 
+  grafana:
+    image: dockerhub.timeweb.cloud/grafana/grafana:latest
+    container_name: grafana
+    user: "0"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
+  grafana-storage:
