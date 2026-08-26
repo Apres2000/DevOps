@@ -1,0 +1,27 @@
+---
+- name: Автоматизация Docker на удаленном сервере
+  hosts: prod_servers
+  become: yes  # Запуск команд с правами root
+
+  tasks:
+    - name: 1. Обновляем кэш пакетов apt
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: 2. Устанавливаем Docker и его зависимости
+      apt:
+        name:
+          - docker.io
+          - python3-docker
+        state: present
+
+    - name: 3. Скачиваем образ и запускаем веб-сервер Nginx
+      community.docker.docker_container:
+        name: my_prod_web_server
+        image: nginx:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "8080:80"
+
