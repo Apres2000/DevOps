@@ -15,8 +15,8 @@ services:
 
   python_app:
     build: .
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"
     depends_on:
       db:
         condition: service_healthy
@@ -30,27 +30,59 @@ services:
     container_name: prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
+    expose:
+      - "9090"
     depends_on:
       - node-exporter
 
   node-exporter:
     image: dockerhub.timeweb.cloud/prom/node-exporter:latest
     container_name: node-exporter
-    ports:
-      - "9100:9100"
+    expose:
+      - "9100"
 
   grafana:
     image: dockerhub.timeweb.cloud/grafana/grafana:latest
     container_name: grafana
     user: "0"
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
+    environment:
+      - GF_SERVER_ROOT_URL=http://185.207.65.244
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
     depends_on:
       - prometheus
     volumes:
       - grafana-storage:/var/lib/grafana
 
+  loki:
+    image: dockerhub.timeweb.cloud/grafana/loki:latest
+    container_name: loki
+    expose:
+      - "3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    image: dockerhub.timeweb.cloud/grafana/promtail:latest
+    container_name: promtail
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/config.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
+
+  nginx:
+    image: dockerhub.timeweb.cloud/library/nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - python_app
+      - grafana
+
 volumes:
   grafana-storage:
+
