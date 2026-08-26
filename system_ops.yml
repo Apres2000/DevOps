@@ -1,0 +1,25 @@
+---
+- name: Обслуживание сервера VDS
+  hosts: my_servers
+  become: true  # Позволяет Ansible выполнять команды от имени root (как через sudo)
+
+  tasks:
+    - name: 1. Создаем папку для бэкапов, если её ещё нет
+      ansible.builtin.file:
+        path: /home/devops/backups
+        state: directory
+        mode: '0755'
+        owner: devops
+
+    - name: 2. Проверяем свободное место на сервере
+      ansible.builtin.command: df -h /
+      register: disk_space  # Сохраняем результат команды в переменную
+
+    - name: 3. Выводим информацию о диске в консоль
+      ansible.builtin.debug:
+        msg: "{{ disk_space.stdout_lines }}"
+
+    - name: 4. Обновляем кэш пакетов apt (аналог apt update)
+      ansible.builtin.apt:
+        update_cache: yes
+

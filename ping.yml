@@ -1,0 +1,7 @@
+---
+- name: Проверка связи с серверами
+  hosts: my_servers
+  tasks:
+    - name: Отправка тестового пинга через Ansible
+      ansible.builtin.ping:
+
