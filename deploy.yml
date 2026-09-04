@@ -1,0 +1,8 @@
+---
+- name: Деплой инфраструктуры через профессиональные роли
+  hosts: prod_servers
+  become: yes
+
+  roles:
+    - nginx_docker
+

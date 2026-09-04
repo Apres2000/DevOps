@@ -1,0 +1,24 @@
+---
+# tasks/main.yml для роли nginx_docker
+
+- name: Обновляем кэш пакетов apt
+  apt:
+    update_cache: yes
+
+- name: Устанавливаем классический веб-сервер Nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Генерируем нашу кастомную страницу из шаблона Jinja2
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    mode: '0644'
+
+- name: Убеждаемся, что Nginx запущен и работает
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+

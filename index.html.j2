@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ansible Dynamic Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #f4f4f9; }
+        h1 { color: #4A90E2; }
+        .info { background: white; padding: 20px; display: inline-block; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <h1>Привет, Эдик! Этот контейнер развернул Ansible.</h1>
+    <div class="info">
+        <p><strong>Удаленный хост:</strong> {{ ansible_hostname }}</p>
+        <p><strong>ОС сервера:</strong> {{ ansible_distribution }} {{ ansible_distribution_version }}</p>
+        <p><strong>Время деплоя (UTC):</strong> {{ ansible_date_time.iso8601 }}</p>
+    </div>
+</body>
+</html>
+

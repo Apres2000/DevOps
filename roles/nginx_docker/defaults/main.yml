@@ -1,0 +1,5 @@
+nginx_container_name: "my_custom_nginx"
+nginx_host_port: 80
+nginx_container_port: 80
+user_name: "Эдуард"
+
