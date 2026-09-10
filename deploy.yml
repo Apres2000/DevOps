@@ -1,8 +1,11 @@
 ---
-- name: Деплой инфраструктуры через профессиональные роли
-  hosts: prod_servers
+- name: Деплой связки Nginx + Flask в Docker
+  hosts: remote_node
   become: yes
 
   roles:
+    - postgres_db
+    - flask_backend
     - nginx_docker
+
 

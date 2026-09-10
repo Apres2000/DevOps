@@ -1,0 +1,28 @@
+---
+# tasks/main.yml для роли postgres_db
+
+- name: Создать общую Docker-сеть для компонентов приложения
+  docker_network:
+    name: flask_network
+    state: present
+
+- name: Создать Docker Volume для постоянного хранения данных базы
+  docker_volume:
+    name: postgres_data
+    state: present
+
+- name: Запустить Docker-контейнер с PostgreSQL
+  docker_container:
+    name: db
+    image: dockerhub.timeweb.cloud/library/postgres:15
+    state: started
+    restart_policy: always
+    networks:
+      - name: flask_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env:
+      POSTGRES_DB: flask_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+

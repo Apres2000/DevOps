@@ -11,15 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Шаг 1: Подключаемся к серверу по SSH и выполняем команды обновления кода
+      # Шаг 1: Подключаемся к серверу по SSH и запускаем Ansible
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}          # ИСПОЛЬЗУЕМ КЛЮЧ ВМЕСТО ПАРОЛЯ
+          port: 22                             # Стандартный SSH-порт хоста
           script: |
             cd ~/my_project
             git pull origin main
-            docker compose down
-            docker compose up -d --build
+            ansible-playbook deploy.yml        # ЗАПУСКАЕМ ANSIBLE ВМЕСТО DOCKER COMPOSE
+

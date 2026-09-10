@@ -10,11 +10,12 @@
     name: nginx
     state: present
 
-- name: Генерируем нашу кастомную страницу из шаблона Jinja2
+- name: Копируем конфигурацию Reverse Proxy в Nginx
   template:
-    src: index.html.j2
-    dest: /var/www/html/index.html
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
     mode: '0644'
+  notify: Перезапустить Nginx
 
 - name: Убеждаемся, что Nginx запущен и работает
   service:

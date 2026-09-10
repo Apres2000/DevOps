@@ -1,0 +1,43 @@
+---
+- name: Создать директорию для сборки приложения на ноде
+  file:
+    path: /opt/flask_app
+    state: directory
+    mode: '0755'
+
+- name: Копировать исходный код приложения
+  copy:
+    src: app.py
+    dest: /opt/flask_app/app.py
+    mode: '0644'
+
+- name: Копировать Dockerfile
+  copy:
+    src: Dockerfile
+    dest: /opt/flask_app/Dockerfile
+    mode: '0644'
+
+- name: Собрать Docker-образ для Flask
+  docker_image:
+    name: flask_backend
+    tag: latest
+    source: build
+    build:
+      path: /opt/flask_app
+    state: present
+
+- name: Запустить Docker-контейнер с Flask
+  docker_container:
+    name: flask_app
+    image: flask_backend:latest
+    state: started
+    restart_policy: always
+    published_ports:
+      - "5000:5000"
+    networks:
+      - name: flask_network
+    env:
+      DB_HOST: "db"
+      DB_NAME: "flask_db"
+      DB_USER: "postgres"
+      DB_PASSWORD: "postgres"
