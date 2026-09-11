@@ -17,8 +17,6 @@
     image: prom/prometheus:latest
     restart_policy: always
     network_mode: bridge
-    ports:
-      - "9090:9090"
     volumes:
       - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
@@ -28,6 +26,6 @@
     image: grafana/grafana:latest
     restart_policy: always
     network_mode: bridge
-    ports:
-      - "3000:3000"
-
+    env:
+      GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/grafana/"
+      GF_SERVER_SERVE_FROM_SUB_PATH: "true"
