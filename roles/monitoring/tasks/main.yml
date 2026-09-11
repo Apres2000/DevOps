@@ -1,0 +1,33 @@
+---
+- name: Create Prometheus configuration directory
+  file:
+    path: /etc/prometheus
+    state: directory
+    mode: '0755'
+
+- name: Copy Prometheus configuration template
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+    mode: '0644'
+
+- name: Start Prometheus Docker container
+  docker_container:
+    name: prometheus
+    image: prom/prometheus:latest
+    restart_policy: always
+    network_mode: bridge
+    ports:
+      - "9090:9090"
+    volumes:
+      - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+- name: Start Grafana Docker container
+  docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+    restart_policy: always
+    network_mode: bridge
+    ports:
+      - "3000:3000"
+
